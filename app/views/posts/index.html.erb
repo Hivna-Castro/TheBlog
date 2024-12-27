@@ -1,0 +1,45 @@
+<body>
+  <!-- Menu superior -->
+  <header>
+    <nav>
+        <ul>
+        <p> TheBlog </p>
+        <% if logged_in? %>
+            <li><%= link_to 'Novo Post', new_post_path %></li>
+            <li><%= link_to 'Sair', logout_path, method: :delete %></li>
+        <% else %>
+            <li><%= link_to 'Login', login_path %></li>
+            <li><%= link_to 'Cadastro', signup_path %><li>
+        <% end %>
+        </ul>
+    </nav>
+  </header>
+
+
+  <!-- Conteúdo da Dashboard -->
+  <main>
+    <section class="dashboard">
+      <div class="posts">
+        <h2>Posts Recentes</h2>
+        <% @posts.each do |post| %>
+          <div class="post">
+            <h3><%= post.title %></h3>
+            <p><%= post.content.truncate(200) %></p>
+            <p><small>Publicado em: <%= post.created_at.strftime('%d/%m/%Y') %></small></p>
+            <a href="<%= post_path(post) %>">Leia mais...</a>
+          </div>
+        <% end %>
+
+        <!-- Paginação -->
+        <div class="pagination">
+          <%= paginate @posts %> <!-- Links de paginação se necessário -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer>
+    <p>&copy; <%= Time.now.year %> Meu Blog. Todos os direitos reservados.</p>
+  </footer>
+</body>
