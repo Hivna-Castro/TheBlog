@@ -22,4 +22,6 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users, only: [:edit, :update]
+
 end

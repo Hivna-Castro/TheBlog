@@ -1,0 +1,35 @@
+<h1>Editar Perfil</h1>
+
+<%= form_with model: @user, local: true do |form| %>
+  <div>
+    <%= form.label :name, "Nome" %>
+    <%= form.text_field :name, value: @user.name, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :email, "E-mail" %>
+    <%= form.email_field :email, value: @user.email, required: true %>
+  </div>
+
+  <h3>Alterar Senha (opcional)</h3>
+  <div>
+    <%= form.label :current_password, "Senha Atual" %>
+    <%= form.password_field :current_password %>
+  </div>
+
+  <div>
+    <%= form.label :password, "Nova Senha" %>
+    <%= form.password_field :password %>
+  </div>
+
+  <div>
+    <%= form.label :password_confirmation, "Confirmação de Nova Senha" %>
+    <%= form.password_field :password_confirmation %>
+  </div>
+
+  <div>
+    <%= form.submit "Salvar alterações" %>
+  </div>
+<% end %>
+
+<%= link_to 'Voltar', posts_path %>
