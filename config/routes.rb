@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#create'             # autenticar o usuário
   get 'logout', to: 'sessions#destroy', as: :logout
 
-  resources :posts, only: [:new, :index, :show] do
+  resources :posts, only: [:new, :create, :index, :show] do
     resources :comments, only: [:create, :destroy]
   end
 
