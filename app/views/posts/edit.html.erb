@@ -1,0 +1,17 @@
+<h1>Editar Post</h1>
+
+<%= form_with model: @post, local: true do |form| %>
+  <div>
+    <%= form.label :title, "Título" %>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :content, "Conteúdo" %>
+    <%= form.text_area :content, rows: 6 %>
+  </div>
+  <div>
+    <%= form.submit "Salvar alterações", class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<%= link_to 'Cancelar', my_posts_posts_path, class: 'btn btn-secondary' %>

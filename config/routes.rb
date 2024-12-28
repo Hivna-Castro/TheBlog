@@ -14,8 +14,12 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#create'             # autenticar o usuário
   get 'logout', to: 'sessions#destroy', as: :logout
 
-  resources :posts, only: [:new, :create, :index, :show] do
+  resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
     resources :comments, only: [:create, :destroy]
+    
+    collection do  # personalizada para listar os posts do usuário logado
+      get :my_posts
+    end
   end
 
 end
