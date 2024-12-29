@@ -4,12 +4,11 @@ class CommentsController < ApplicationController
     def create
       @comment = @post.comments.new(comment_params)
   
-      # Caso o usuário esteja logado, associamos o comentário ao usuário atual
       if current_user
         @comment.user = current_user
         @comment.anonymous = false 
       else
-        @comment.anonymous = true  # Comentário será anônimo
+        @comment.anonymous = true  
       end
   
       if @comment.save
@@ -22,7 +21,6 @@ class CommentsController < ApplicationController
     def destroy
       @comment = @post.comments.find(params[:id])
   
-      # Permitir exclusão apenas se for o autor 
       if @comment.user == current_user 
         @comment.destroy
         redirect_to post_path(@post), notice: "Comentário excluído com sucesso."
