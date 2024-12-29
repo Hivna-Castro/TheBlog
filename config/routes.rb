@@ -8,20 +8,27 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "posts#index"
   
-  get 'signup', to: 'users#new', as: 'signup'     # para se cadastrar
-  post 'signup', to: 'users#create'                # criar um novo usuário
-  get 'login', to: 'sessions#new', as: 'login'    # para logar
-  post 'login', to: 'sessions#create'             # autenticar o usuário
+  get 'signup', to: 'users#new', as: 'signup'     # form de cadastro
+  post 'signup', to: 'users#create'                # criar usuário
+  get 'login', to: 'sessions#new', as: 'login'    # form p/ logar
+  post 'login', to: 'sessions#create'             # autenticar 
   get 'logout', to: 'sessions#destroy', as: :logout
 
   resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
     resources :comments, only: [:create, :destroy]
     
-    collection do  # personalizada para listar os posts do usuário logado
+    collection do  
       get :my_posts
     end
   end
 
-  resources :users, only: [:edit, :update]
+  resources :users, only: [:edit, :update] do
+    collection do
+      get :forgot_password_form
+      post :forgot_password
+      get :reset_password_form
+      patch :reset_password
+    end
+  end
 
 end

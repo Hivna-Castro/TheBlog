@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_login, except: [:new, :create]
+  before_action :require_login, except: [:new, :create, :forgot_password_form, :forgot_password, :reset_password_form, :reset_password]
 
     def new
       @user = User.new
@@ -23,7 +23,6 @@ class UsersController < ApplicationController
     def update
       @user = current_user
     
-      # Valida a senha atual apenas se o usuário estiver tentando alterar a senha
       if user_params[:password].present? || user_params[:password_confirmation].present?
         if user_params[:current_password].blank?
           flash.now[:alert] = "Senha atual é obrigatória para alterar a senha."
@@ -36,11 +35,47 @@ class UsersController < ApplicationController
         end
       end
     
-      # Atualiza o usuário
       if @user.update(user_params.except(:current_password))
         redirect_to posts_path, notice: "Perfil atualizado com sucesso."
       else
         render :edit, status: :unprocessable_entity
+      end
+    end
+  
+    def forgot_password_form
+      render :forgot_password_form
+    end
+
+    def forgot_password
+      result = Users::Interactors::GeneratePasswordResetToken.call(email: params[:email])
+
+      if result.success?
+        flash[:notice] = result.message
+        render :forgot_password_form
+      else
+        flash[:alert] = result.error
+        render :forgot_password_form
+      end
+    end
+
+    def reset_password_form
+      @token = params[:token]
+      render :reset_password_form
+    end
+
+    def reset_password
+      result = Users::Interactors::ResetPassword.call(
+        token: params[:token],
+        password: params[:password],
+        password_confirmation: params[:password_confirmation]
+      )
+
+      if result.success?
+        redirect_to login_path, notice: result.message
+      else
+        flash[:alert] = result.error
+        @token = params[:token]
+        render :reset_password
       end
     end
   

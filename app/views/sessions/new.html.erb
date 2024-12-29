@@ -19,4 +19,16 @@
   <div>
     <%= form.submit "Login" %>
   </div>
+
+  <p>
+    <%= link_to 'Esqueceu sua senha?', forgot_password_form_users_path %>
+  </p>
+
+  <p >
+    Ainda não possui uma conta? 
+    <%= link_to 'Cadastre-se', signup_path %>
+  </p>
+  <p>
+    <%= link_to 'Home', posts_path %>
+  </p>
 <% end %>
