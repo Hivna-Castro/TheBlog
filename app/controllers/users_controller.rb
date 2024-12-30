@@ -11,7 +11,7 @@ class UsersController < ApplicationController
         session[:user_id] = @user.id  
         redirect_to root_path, notice: "Conta criada com sucesso!"
       else
-         puts "Erro ao criar o usuário: #{@user.errors.full_messages.join(', ')}"
+        flash.now[:alert]= "Erro ao criar o usuário: #{@user.errors.full_messages.join(', ')}"
         render :new
       end
     end

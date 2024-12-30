@@ -35,6 +35,7 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to my_posts_posts_path, notice: "Post atualizado com sucesso!"
     else
+      flash.now[:alert] = @post.errors.full_messages.to_sentence
       render :edit, status: :unprocessable_entity
     end
   end
