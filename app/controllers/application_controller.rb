@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
     helper_method :current_user, :logged_in?
+    before_action :set_locale
 
     def require_login
       unless logged_in?
@@ -15,4 +16,12 @@ class ApplicationController < ActionController::Base
     def logged_in?
       !!current_user
     end
+
+    private
+
+  def set_locale
+    I18n.locale = params[:locale] || session[:locale] || I18n.default_locale
+    session[:locale] = I18n.locale  
+  end
+
 end

@@ -17,7 +17,7 @@ RSpec.describe Users::Interactors::ResetPassword, type: :interactor do
 
           expect(interactor).to be_success
           expect(user.reload.authenticate(new_password)).to be_truthy
-          expect(interactor.message).to eq('Senha redefinida com sucesso.')
+          expect(interactor.message).to eq(I18n.t('users.reset_password.success'))
         end
       end
 
@@ -28,7 +28,7 @@ RSpec.describe Users::Interactors::ResetPassword, type: :interactor do
           interactor = described_class.call(params)
 
           expect(interactor).to be_failure
-          expect(interactor.error).to match(/minimum is 8 characters/) 
+          expect(interactor.error).to match(I18n.t('users.reset_password.password_validation_error')) 
         end
       end
     end
@@ -40,7 +40,7 @@ RSpec.describe Users::Interactors::ResetPassword, type: :interactor do
         interactor = described_class.call(params)
 
         expect(interactor).to be_failure
-        expect(interactor.error).to eq('Token inválido ou expirado.')
+        expect(interactor.error).to eq(I18n.t('users.reset_password.failure'))
       end
     end
   end

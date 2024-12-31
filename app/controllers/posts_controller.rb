@@ -25,8 +25,9 @@ class PostsController < ApplicationController
     @post = current_user.posts.new(post_params)
     if @post.save
       update_tags if params[:tags].present? 
-      redirect_to root_path, notice: "Post criado com sucesso!"
+      redirect_to root_path, notice: I18n.t('posts.create.success')
     else
+      flash.now[:alert] = I18n.t('posts.create.failure', errors: @post.errors.full_messages.to_sentence)
       render :new, status: :unprocessable_entity
     end
   end
@@ -41,16 +42,19 @@ class PostsController < ApplicationController
   def update
     if @post.update(post_params)
       update_tags
-      redirect_to my_posts_posts_path, notice: "Post atualizado com sucesso!"
+      redirect_to my_posts_posts_path, notice: I18n.t('posts.update.success')
     else
-      flash.now[:alert] = @post.errors.full_messages.to_sentence
+      flash.now[:alert] = I18n.t('posts.update.failure', errors: @post.errors.full_messages.to_sentence)
       render :edit, status: :unprocessable_entity
     end
   end
   
   def destroy
-    @post.destroy
-    redirect_to my_posts_posts_path, notice: "Post deletado com sucesso!"
+    if @post.destroy
+      redirect_to my_posts_posts_path, notice: I18n.t('posts.destroy.success')
+    else
+      redirect_to my_posts_posts_path, alert: I18n.t('posts.destroy.failure')
+    end
   end
   
   private

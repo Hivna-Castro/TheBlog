@@ -12,9 +12,9 @@ class CommentsController < ApplicationController
       end
   
       if @comment.save
-        redirect_to post_path(@post), notice: "Comentário criado com sucesso!"
+        redirect_to post_path(@post), notice: I18n.t('comments.create.success')
       else
-        redirect_to post_path(@post), alert: "Erro ao criar comentário: #{@comment.errors.full_messages.to_sentence}"
+        redirect_to post_path(@post), alert: I18n.t('comments.create.failure', errors: @comment.errors.full_messages.to_sentence)
       end
     end
   
@@ -23,9 +23,9 @@ class CommentsController < ApplicationController
   
       if @comment.user == current_user 
         @comment.destroy
-        redirect_to post_path(@post), notice: "Comentário excluído com sucesso."
+        redirect_to post_path(@post), notice: I18n.t('comments.destroy.success')
       else
-        redirect_to post_path(@post), alert: "Você não tem permissão para excluir este comentário."
+        redirect_to post_path(@post), alert: I18n.t('comments.destroy.failure')
       end
     end
   

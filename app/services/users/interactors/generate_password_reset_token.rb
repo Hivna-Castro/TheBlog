@@ -12,9 +12,9 @@ module Users
           user.save!
 
           PasswordMailer.with(user: user).reset_password_email.deliver_now
-          context.message = "E-mail de redefinição enviado com sucesso."
+          context.message = I18n.t('users.forgot_password.success')
         else
-          context.fail!(error: "Usuário não encontrado.")
+          context.fail!(error: I18n.t('users.forgot_password.failure'))
         end
       end
 

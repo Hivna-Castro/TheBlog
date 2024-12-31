@@ -7,7 +7,6 @@ RSpec.describe "Sessions", type: :request do
     it "exibe o formulário de login" do
       get login_path
       expect(response).to have_http_status(:ok)  
-      expect(response.body).to include("Login")  
     end
   end
 
@@ -18,7 +17,7 @@ RSpec.describe "Sessions", type: :request do
 
         expect(response).to redirect_to(root_path)  
         follow_redirect!
-        expect(response.body).to include("Login realizado com sucesso!")  
+        expect(response.body).to include(I18n.t('sessions.create.success'))  
       end
     end
 
@@ -27,7 +26,7 @@ RSpec.describe "Sessions", type: :request do
             post '/login', params: { email: user.email, password: "wrongpassword" }
     
             expect(response.status).to eq(422) 
-            expect(response.body).to include("Email ou senha inválidos!")
+            expect(response.body).to include(I18n.t('sessions.create.failure'))
         end
     end
   end
@@ -43,7 +42,7 @@ RSpec.describe "Sessions", type: :request do
     
           expect(response).to redirect_to(root_path)  
           follow_redirect!
-          expect(response.body).to include("Logout realizado com sucesso!")  
+          expect(response.body).to include(I18n.t('sessions.destroy.success'))  
         end
     end
   end

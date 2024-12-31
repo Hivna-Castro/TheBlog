@@ -28,4 +28,63 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  hello: "Hello"
+  login: "Login"
+  logout: "Logout"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              too_short: "Password must be at least 8 characters long."
+  sessions:
+    create:
+      success: "Successfully logged in"
+      failure: "Invalid email or password"
+    destroy:
+      success: "Successfully logged out"
+  posts:
+    create:
+      success: "Post successfully created!"
+      failure: "Failed to create the post: %{errors}"
+    update:
+      success: "Post successfully updated!"
+      failure: "Failed to update the post: %{errors}"
+    destroy:
+      success: "Post successfully deleted!"
+      failure: "Failed to delete the post. Please try again."
+  users:
+    forgot_password:
+      success: "Password reset email has been sent successfully."
+      failure: "User not found. Please check the email and try again."
+    reset_password:
+      success: "Your password has been successfully reset."
+      failure: "Invalid or expired reset token."
+      password_validation_error: "Password must be at least 8 characters long."
+    create:
+      success: "Account successfully created!"
+      failure: "Failed to create user: %{errors}"
+    update:
+      success: "Profile successfully updated."
+      failure:
+        current_password_missing: "Current password is required to update your password."
+        current_password_invalid: "The current password you entered is incorrect."
+  tags:
+    destroy:
+      success: "The tag '%{tag_name}' was successfully removed."
+  comments:
+    create:
+      success: "Comment created successfully!"
+      failure: "Failed to create comment: %{errors}"
+    destroy:
+      success: "Comment deleted successfully."
+      failure: "You do not have permission to delete this comment."
+  password_mailer:
+    reset_password_email:
+      subject: "Password Reset Instructions"
+      body:
+        greeting: "Hello, %{name},"
+        instructions: "You requested a password reset. Click the link below to reset your password:"
+        button: "Reset my password"
+        closing: "If you did not request this action, please ignore this email."

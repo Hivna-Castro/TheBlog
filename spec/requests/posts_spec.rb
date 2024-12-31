@@ -50,13 +50,15 @@ RSpec.describe "Posts", type: :request do
         it "loga o usuário e redireciona para a página inicial" do
             expect(response).to redirect_to(root_path)
             follow_redirect!
-            expect(response.body).to include("Login realizado com sucesso!")
+            expect(response.body).to include(I18n.t('sessions.create.success'))
         end
 
         it "cria o post e redireciona para a lista de posts" do
           post_params = { post: { title: "Novo Post", content: "Conteúdo do post" } }
           post posts_path, params: post_params
           expect(response).to have_http_status(302)
+          follow_redirect! 
+          expect(response.body).to include(I18n.t('posts.create.success'))
           expect(Post.last.tags).to be_empty 
         end
 
@@ -73,7 +75,8 @@ RSpec.describe "Posts", type: :request do
 
       it "não cria o post e exibe o formulário novamente" do
         post posts_path, params: invalid_post_params
-        expect(response).to have_http_status(422)  
+        expect(response).to have_http_status(422) 
+        expect(flash[:alert]).to include(I18n.t('posts.create.failure', errors:  "Title can't be blank and Content can't be blank")) 
       end
 
     end
@@ -99,7 +102,7 @@ RSpec.describe "Posts", type: :request do
         patch post_path(post_obj), params: { post: { title: "Updated title", content: "Updated content" }, tags: 'Rails, Ruby' }
         expect(response).to redirect_to(my_posts_posts_path)
         follow_redirect!
-        expect(response.body).to include("Post atualizado com sucesso!")
+        expect(response.body).to include(I18n.t('posts.update.success'))
         expect(post_obj.reload.tags.map(&:name)).to include('rails', 'ruby')
       end
     end
@@ -110,8 +113,7 @@ RSpec.describe "Posts", type: :request do
     
         patch post_path(post_obj), params: invalid_post_params
         expect(response).to have_http_status(422)
-        expect(flash.now[:alert]).to include("Title can't be blank")
-        expect(flash.now[:alert]).to include("Content can't be blank")
+        expect(flash.now[:alert]).to include(I18n.t('posts.update.failure', errors: "Title can't be blank and Content can't be blank"))
 
       end
     end
@@ -126,7 +128,7 @@ RSpec.describe "Posts", type: :request do
         delete post_path(post_obj)
         expect(response).to redirect_to(my_posts_posts_path)
         follow_redirect!
-        expect(response.body).to include("Post deletado com sucesso!")
+        expect(response.body).to include(I18n.t('posts.destroy.success'))
       end
     end
 

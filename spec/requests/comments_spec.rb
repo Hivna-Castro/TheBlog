@@ -22,7 +22,7 @@ RSpec.describe "Comments", type: :request do
 
         expect(response).to redirect_to(post_path(post))
         follow_redirect!
-        expect(response.body).to include(comment_params[:content])
+        expect(response.body).to include(I18n.t('comments.create.success'))
       end
 
       it "não cria um comentário com atributos inválidos" do
@@ -30,7 +30,9 @@ RSpec.describe "Comments", type: :request do
           post post_comments_path(post), params: { comment: invalid_comment_params }
         }.not_to change(Comment, :count)
 
-        expect(response).to have_http_status(:ok)
+        expect(response).to redirect_to(post_path(post))
+        follow_redirect!
+        expect(response.body).to include(I18n.t('comments.create.failure', errors: "Content can't be blank"))
       end
     end
 
@@ -42,7 +44,7 @@ RSpec.describe "Comments", type: :request do
 
         expect(response).to redirect_to(post_path(post))
         follow_redirect!
-        expect(response.body).to include("Comentário criado com sucesso!")
+        expect(response.body).to include(I18n.t('comments.create.success'))
 
         expect(Comment.last.anonymous).to be_truthy
       end
@@ -62,7 +64,7 @@ RSpec.describe "Comments", type: :request do
 
         expect(response).to redirect_to(post_path(post))
         follow_redirect!
-        expect(response.body).to include("Comentário excluído com sucesso!")
+        expect(response.body).to include(I18n.t('comments.destroy.success'))
       end
     end
   end

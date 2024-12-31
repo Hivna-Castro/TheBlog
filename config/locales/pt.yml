@@ -1,0 +1,61 @@
+pt:
+  hello: "Olá"
+  login: "Entrar"
+  logout: "Sair"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              too_short: "A senha deve ter no mínimo 8 caracteres."
+  sessions:
+    create:
+      success: "Login realizado com sucesso"
+      failure: "Email ou senha inválidos"
+    destroy:
+      success: "Logout realizado com sucesso"
+  posts:
+    create:
+      success: "Post criado com sucesso!"
+      failure: "Falha ao criar o post: %{errors}"
+    update:
+      success: "Post atualizado com sucesso!"
+      failure: "Falha ao atualizar o post: %{errors}"
+    destroy:
+      success: "Post deletado com sucesso!"
+      failure: "Falha ao deletar o post. Por favor, tente novamente."
+  users:
+    forgot_password:
+      success: "O e-mail para redefinir a senha foi enviado com sucesso."
+      failure: "Usuário não encontrado. Por favor, verifique o e-mail e tente novamente."
+    reset_password:
+      success: "Sua senha foi redefinida com sucesso."
+      failure: "Token de redefinição inválido ou expirado."
+      password_validation_error: "A senha deve ter no mínimo 8 caracteres."
+    create:
+      success: "Conta criada com sucesso!"
+      failure: "Erro ao criar o usuário: %{errors}"
+    update:
+      success: "Perfil atualizado com sucesso."
+      failure:
+        current_password_missing: "A senha atual é obrigatória para alterar a senha."
+        current_password_invalid: "A senha atual que você digitou está incorreta."
+  tags:
+    destroy:
+      success: "A tag '%{tag_name}' foi removida com sucesso."
+  comments:
+    create:
+      success: "Comentário criado com sucesso!"
+      failure: "Erro ao criar comentário: %{errors}"
+    destroy:
+      success: "Comentário excluído com sucesso."
+      failure: "Você não tem permissão para excluir este comentário."
+  password_mailer:
+    reset_password_email:
+      subject: "Instruções para redefinição de senha"
+      body:
+        greeting: "Olá, %{name},"
+        instructions: "Você solicitou a redefinição de sua senha. Clique no link abaixo para redefinir sua senha:"
+        button: "Redefinir minha senha"
+        closing: "Se você não solicitou essa ação, ignore este e-mail."

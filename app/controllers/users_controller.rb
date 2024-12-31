@@ -9,9 +9,9 @@ class UsersController < ApplicationController
       @user = User.new(user_params)
       if @user.save
         session[:user_id] = @user.id  
-        redirect_to root_path, notice: "Conta criada com sucesso!"
+        redirect_to root_path, notice: I18n.t('users.create.success')
       else
-        flash.now[:alert]= "Erro ao criar o usuário: #{@user.errors.full_messages.join(', ')}"
+        flash.now[:alert]= I18n.t('users.create.failure', errors: @user.errors.full_messages.join(', '))
         render :new
       end
     end
@@ -25,19 +25,20 @@ class UsersController < ApplicationController
     
       if user_params[:password].present? || user_params[:password_confirmation].present?
         if user_params[:current_password].blank?
-          flash.now[:alert] = "Senha atual é obrigatória para alterar a senha."
+          flash.now[:alert] = I18n.t('users.update.missing_current_password')
           render :edit, status: :unprocessable_entity
           return
         elsif !@user.authenticate(user_params[:current_password])
-          flash.now[:alert] = "Senha atual não está correta."
+          flash.now[:alert] = I18n.t('users.update.incorrect_current_password')
           render :edit, status: :unprocessable_entity
           return
         end
       end
     
       if @user.update(user_params.except(:current_password))
-        redirect_to posts_path, notice: "Perfil atualizado com sucesso."
+        redirect_to posts_path, notice: I18n.t('users.update.success')
       else
+        flash.now[:alert] = I18n.t('users.update.failure', errors: @user.errors.full_messages.join(', '))
         render :edit, status: :unprocessable_entity
       end
     end

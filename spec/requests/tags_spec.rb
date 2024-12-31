@@ -23,7 +23,7 @@ RSpec.describe "Tags", type: :request do
       expect(post.tags).not_to include(tag)
       expect(response).to redirect_to(my_posts_posts_path)
       follow_redirect!
-      expect(response.body).to include("A tag '#{tag.name}' foi removida com sucesso.")
+      expect(flash[:alert]).to include(I18n.t('tags.destroy.success', tag_name: tag.name))
     end
   end
 end

@@ -11,7 +11,11 @@
   </head>
 
   <body>
-  
+    <div>
+      <%= link_to 'English', url_for(locale: 'en') %> | 
+      <%= link_to 'Português', url_for(locale: 'pt') %>
+    </div>
+
     <div id="flash-messages" data-controller="flash">
       <% flash.each do |type, message| %>
         <div class="alert <%= "alert-#{type}" %>" data-flash-target="message">

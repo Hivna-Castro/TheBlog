@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password, presence: true, length: { minimum: 8 }, confirmation: true, on: :update, allow_blank: true
+  validates :password, presence: true, length: { minimum: 8, message: I18n.t('activerecord.errors.models.user.attributes.password.too_short')  }, confirmation: true, on: :update, allow_blank: true
 
   def generate_password_reset_token!
     update!(

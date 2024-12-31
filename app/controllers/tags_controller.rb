@@ -5,7 +5,7 @@ class TagsController < ApplicationController
       tag = @post.tags.find(params[:id])
       @post.tags.delete(tag)
   
-      redirect_to my_posts_posts_path, notice: "A tag '#{tag.name}' foi removida com sucesso."
+      redirect_to my_posts_posts_path, notice: I18n.t('tags.destroy.success', tag_name: tag.name)
     end
   
     private

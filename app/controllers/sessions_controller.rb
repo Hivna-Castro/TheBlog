@@ -6,16 +6,16 @@ class SessionsController < ApplicationController
       user = User.find_by(email: params[:email])
       if user&.authenticate(params[:password])
         session[:user_id] = user.id
-        redirect_to root_path, notice: "Login realizado com sucesso!"
+        redirect_to root_path, notice: I18n.t('sessions.create.success')
       else
-        flash.now[:alert] = "Email ou senha inválidos!"
+        flash.now[:alert] = I18n.t('sessions.create.failure')
         render :new, status: :unprocessable_entity
       end
     end
   
     def destroy
       session[:user_id] = nil
-      redirect_to root_path, notice: "Logout realizado com sucesso!"
+      redirect_to root_path, notice: I18n.t('sessions.destroy.success')
     end
 
 end

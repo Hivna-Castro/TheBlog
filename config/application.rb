@@ -23,5 +23,10 @@ module TheBlog
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+  
+    config.i18n.default_locale = :en  
+
+    config.i18n.available_locales = [:en, :pt]  
+    # config.i18n.fallbacks = [I18n.default_locale]
   end
 end
