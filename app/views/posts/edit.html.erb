@@ -9,6 +9,10 @@
     <%= form.label :content, "Conteúdo" %>
     <%= form.text_area :content, rows: 6 %>
   </div>
+    <div class="field">
+      <%= form.label :tags, "Tags (separadas por vírgula)" %>
+      <%= text_field_tag :tags, @post.tags.map(&:name).join(', '), class: "form-control" %>
+    </div>
   <div>
     <%= form.submit "Salvar alterações", class: 'btn btn-primary' %>
   </div>

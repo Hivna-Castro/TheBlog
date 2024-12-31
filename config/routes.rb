@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
     resources :comments, only: [:create, :destroy]
+    resources :tags, only: [:destroy]
     
     collection do  
       get :my_posts

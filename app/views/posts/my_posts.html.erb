@@ -5,7 +5,7 @@
         <p> TheBlog </p>
             <li><%= link_to 'Novo Post', new_post_path %></li>
             <li><%= link_to 'Posts', posts_path %></li>
-            <li><%= link_to 'Sair', logout_path, method: :delete %></li>
+            <li><%= link_to 'Sair', logout_path%></li>
         </ul>
     </nav>
   </header>
@@ -18,7 +18,19 @@
         <p><%= post.content.truncate(200) %></p>
         <p><small>Publicado em: <%= post.created_at.strftime('%d/%m/%Y') %></small></p>
         
-        <!-- Botões para Editar e Apagar -->
+        <% if post.tags.any? %>
+          <div class="tags-container">
+            <% post.tags.each do |tag| %>
+              <span class="tag">
+                <%= tag.name %>
+                <%= form_with url: post_tag_path(post_id: post.id, id: tag.id), method: :delete, data: { confirm: "Tem certeza que deseja excluir esta tag?" }, local: true do |form| %>
+                  <%= form.submit 'X', class: 'btn btn-danger' %>
+                <% end %>
+              </span>
+            <% end %>
+          </div>
+        <% end %>
+
         <div>
           <%= link_to 'Editar', edit_post_path(post), class: 'btn btn-primary' %>
           <%= form_with url: post_path(post), method: :delete, data: { confirm: "Tem certeza que deseja excluir este post?" }, local: true do |form| %>
