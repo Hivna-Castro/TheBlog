@@ -1,35 +1,35 @@
-<h1>Editar Perfil</h1>
+<h1><%= I18n.t('application.users.edit_profile.title') %></h1>
 
 <%= form_with model: @user, local: true do |form| %>
   <div>
-    <%= form.label :name, "Nome" %>
+    <%= form.label :name, I18n.t('application.users.edit_profile.name') %>
     <%= form.text_field :name, value: @user.name, required: true %>
   </div>
 
   <div>
-    <%= form.label :email, "E-mail" %>
+    <%= form.label :email, I18n.t('application.users.edit_profile.email') %>
     <%= form.email_field :email, value: @user.email, required: true %>
   </div>
 
-  <h3>Alterar Senha (opcional)</h3>
+  <h3><%= I18n.t('application.users.edit_profile.change_password') %></h3>
   <div>
-    <%= form.label :current_password, "Senha Atual" %>
+    <%= form.label :current_password, I18n.t('application.users.edit_profile.current_password') %>
     <%= form.password_field :current_password %>
   </div>
 
   <div>
-    <%= form.label :password, "Nova Senha" %>
+    <%= form.label :password, I18n.t('application.users.edit_profile.new_password') %>
     <%= form.password_field :password %>
   </div>
 
   <div>
-    <%= form.label :password_confirmation, "Confirmação de Nova Senha" %>
+    <%= form.label :password_confirmation, I18n.t('application.users.edit_profile.confirm_new_password') %>
     <%= form.password_field :password_confirmation %>
   </div>
 
   <div>
-    <%= form.submit "Salvar alterações" %>
+    <%= form.submit I18n.t('application.users.edit_profile.submit') %>
   </div>
 <% end %>
 
-<%= link_to 'Voltar', posts_path %>
+<%= link_to I18n.t('application.users.edit_profile.back'), posts_path %>

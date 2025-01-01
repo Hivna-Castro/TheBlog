@@ -3,9 +3,13 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :nullify
 
-  validates :name, presence: true
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password, presence: true, length: { minimum: 8, message: I18n.t('activerecord.errors.models.user.attributes.password.too_short')  }, confirmation: true, on: :update, allow_blank: true
+  validates :name, presence: { message: I18n.t('activerecord.errors.models.user.attributes.name.blank') }
+  validates :email, presence: { message: I18n.t('activerecord.errors.models.user.attributes.email.blank') },
+                    uniqueness: { message: I18n.t('activerecord.errors.models.user.attributes.email.taken') },
+                    format: { with: URI::MailTo::EMAIL_REGEXP, message: I18n.t('activerecord.errors.models.user.attributes.email.invalid') }
+  validates :password, presence: { message: I18n.t('activerecord.errors.models.user.attributes.password.blank') },
+                       length: { minimum: 8, message: I18n.t('activerecord.errors.models.user.attributes.password.too_short') },
+                       confirmation: { message: I18n.t('activerecord.errors.models.user.attributes.password.confirmation') }, on: :update, allow_blank: true
 
   def generate_password_reset_token!
     update!(

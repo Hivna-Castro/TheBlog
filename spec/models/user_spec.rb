@@ -8,14 +8,14 @@ RSpec.describe User, type: :model do
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:name) }
-    it { should validate_presence_of(:email) }
+    it { should validate_presence_of(:name).with_message(I18n.t('activerecord.errors.models.user.attributes.name.blank')) }
+    it { should validate_presence_of(:email).with_message(I18n.t('activerecord.errors.models.user.attributes.email.blank')) }
     it { should allow_value('user@example.com').for(:email) }
-    it { should_not allow_value('invalid-email').for(:email) }
+    it { should_not allow_value('invalid-email').for(:email).with_message(I18n.t('activerecord.errors.models.user.attributes.email.invalid')) }
 
-    it { should validate_presence_of(:password).on(:update) }
-    it { should validate_length_of(:password).is_at_least(8).on(:update) }
-    it { should validate_confirmation_of(:password).on(:update) }
+    it { should validate_presence_of(:password).on(:update).with_message(I18n.t('activerecord.errors.models.user.attributes.password.blank')) }
+    it { should validate_length_of(:password).is_at_least(8).on(:update).with_message(I18n.t('activerecord.errors.models.user.attributes.password.too_short')) }
+    it { should validate_confirmation_of(:password).on(:update).with_message(I18n.t('activerecord.errors.models.user.attributes.password.confirmation')) }
   end
 
   describe 'methods' do

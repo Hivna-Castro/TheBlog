@@ -1,20 +1,159 @@
 pt:
-  hello: "Olá"
-  login: "Entrar"
-  logout: "Sair"
+  application:
+    title: "TheBlog"
+    nav:
+      new_post: "Novo Post"
+      my_posts: "Meus Posts"
+      settings: "Configurações"
+      logout: "Sair"
+      login: "Entrar"
+      signup: "Cadastrar-se"
+      index: "Posts"
+    tags_filter:
+      title: "Filtrar por Tags:"
+      select_label: "Selecione uma tag:"
+      all_tags: "Todas as Tags"
+      filter_button: "Filtrar"
+    posts:
+      title: "Posts Recentes"
+      tags: "Tags"
+      published_on: "Publicado em: %{date}"
+      read_more: "Leia mais..."
+      my_posts: "Meus Posts"
+      delete: "Apagar"
+      confirm_delete: "Tem certeza que deseja excluir este post?"
+      no_posts: "Você ainda não criou nenhum post."
+      back: "Voltar"
+      edit: "Editar Post"
+      new: "Criar Novo Post"
+      form:
+        title: "Título"
+        content: "Conteúdo"
+        tags: "Tags (separadas por vírgula)"
+        create: "Criar Post"
+        update: "Salvar Alterações"
+        cancel: "Cancelar"
+    tags:
+      confirm_remove: "Tem certeza que deseja excluir esta tag?"
+    comments:
+      title: "Comentários"
+      anonymous: "Anônimo"
+      confirm_delete: "Tem certeza que deseja excluir este comentário?"
+      no_comments: "Não há comentários ainda. Seja o primeiro a comentar!"
+      leave_your_comment: "Deixe seu comentário"
+      content_label: "Comentário"
+      submit: "Comentar"
+    errors:
+      count: "erro(s)"
+      prohibited: "proibiram este post de ser salvo"
+    sessions:
+      login:
+        title: "Login"
+      create:
+        email: "E-mail"
+        password: "Senha"
+        submit: "Login"
+        forgot_password: "Esqueceu sua senha?"
+        no_account: "Ainda não possui uma conta?"
+        signup: "Cadastre-se"
+        home: "Home"
+    users:
+      create:
+        welcome: "Bem-vindo ao TheBlog!"
+        create_post: "Venha criar seus posts diários"
+        signup: "Cadastro"
+        name: "Nome"
+        name_placeholder: "Insira seu nome"
+        email: "Email"
+        email_placeholder: "Insira seu email"
+        password: "Senha"
+        password_placeholder: "Insira sua senha"
+        password_confirmation: "Confirmação de Senha"
+        password_confirmation_placeholder: "Confirme sua senha"
+        submit: "Cadastrar"
+        already_have_account: "Já possui uma conta?"
+        login: "Login"
+        home: "Home"
+      edit_profile:
+        title: "Editar Perfil"
+        name: "Nome"
+        email: "E-mail"
+        change_password: "Alterar Senha (opcional)"
+        current_password: "Senha Atual"
+        new_password: "Nova Senha"
+        confirm_new_password: "Confirmação de Nova Senha"
+        submit: "Salvar alterações"
+        back: "Voltar"
+      forgot_password:
+        title: "Esqueci Minha Senha"
+        instructions: "Insira o e-mail associado à sua conta. Enviaremos um link para redefinir sua senha."
+        email: "E-mail"
+        submit: "Enviar Instruções"
+      reset_password:
+        title: "Redefinir Senha"
+        instruction: "Defina uma nova senha para sua conta."
+        new_password: "Nova Senha"
+        confirm_password: "Confirme a Nova Senha"
+        submit: "Redefinir Senha"
+
+    footer: "Todos os direitos reservados."
+
+  date:
+    formats:
+      long: "%d/%m/%Y"
+
   activerecord:
+    models:
+      user:
+        one: "Usuário"
+        other: "Usuários"
+      post:
+        one: "Post"
+        other: "Posts"
+      comment:
+        one: "Comentário"
+        other: "Comentários"
+      tag:
+        one: "Tag"
+        other: "Tags"
+
     errors:
       models:
         user:
           attributes:
+            name:
+              blank: "Nome não pode ficar em branco"
+            email:
+              blank: "E-mail não pode ficar em branco"
+              taken: "Este e-mail já está em uso"
+              invalid: "E-mail inválido"
             password:
-              too_short: "A senha deve ter no mínimo 8 caracteres."
+              blank: "Senha não pode ficar em branco"
+              too_short: "A senha deve ter pelo menos 8 caracteres"
+              confirmation: "A confirmação da senha não corresponde"
+        post:
+          attributes:
+            title:
+              blank: "Titulo não pode ficar em branco"
+            content:
+              blank: "Conteúdo não pode ficar em branco"
+        comment:
+          attributes:
+            content:
+              blank: "O conteúdo #{content} não pode ficar em branco"
+        tag:
+          attributes:
+            name:
+              blank: "Tag não pode ficar em branco"
+              taken: "Já está em uso"
+
   sessions:
     create:
       success: "Login realizado com sucesso"
       failure: "Email ou senha inválidos"
     destroy:
       success: "Logout realizado com sucesso"
+
   posts:
     create:
       success: "Post criado com sucesso!"
@@ -25,6 +164,7 @@ pt:
     destroy:
       success: "Post deletado com sucesso!"
       failure: "Falha ao deletar o post. Por favor, tente novamente."
+
   users:
     forgot_password:
       success: "O e-mail para redefinir a senha foi enviado com sucesso."
@@ -35,15 +175,17 @@ pt:
       password_validation_error: "A senha deve ter no mínimo 8 caracteres."
     create:
       success: "Conta criada com sucesso!"
-      failure: "Erro ao criar o usuário: %{errors}"
+      failure: "Falha ao criar o usuário: %{errors}"
     update:
       success: "Perfil atualizado com sucesso."
       failure:
         current_password_missing: "A senha atual é obrigatória para alterar a senha."
         current_password_invalid: "A senha atual que você digitou está incorreta."
+
   tags:
     destroy:
       success: "A tag '%{tag_name}' foi removida com sucesso."
+
   comments:
     create:
       success: "Comentário criado com sucesso!"
@@ -51,6 +193,7 @@ pt:
     destroy:
       success: "Comentário excluído com sucesso."
       failure: "Você não tem permissão para excluir este comentário."
+
   password_mailer:
     reset_password_email:
       subject: "Instruções para redefinição de senha"

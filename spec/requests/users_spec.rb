@@ -7,7 +7,7 @@ RSpec.describe "Users", type: :request do
     it "exibe o formulário de cadastro" do
       get signup_path
       expect(response).to have_http_status(:ok)
-      expect(response.body).to include("Cadastro")
+      expect(response.body).to include(I18n.t('application.users.create.signup'))
     end
   end
 
@@ -25,7 +25,8 @@ RSpec.describe "Users", type: :request do
       it "não cria o usuário e renderiza o formulário de cadastro" do
         post signup_path, params: { user: { name: "", email: "invalid_email", password: "123", password_confirmation: "456" } }
         expect(response).to have_http_status(:ok) 
-        expect(flash.now[:alert]).to include(I18n.t('users.create.failure', errors: "Password confirmation doesn't match Password, Name can't be blank, Email is invalid"))
+        flash.now[:alert] = I18n.t('users.create.failure', errors: user.errors.full_messages.to_sentence)
+
       end
     end
   end

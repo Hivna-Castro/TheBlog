@@ -1,14 +1,4 @@
-<h1>Meus Posts</h1>
-  <header>
-    <nav>
-        <ul>
-        <p> TheBlog </p>
-            <li><%= link_to 'Novo Post', new_post_path %></li>
-            <li><%= link_to 'Posts', posts_path %></li>
-            <li><%= link_to 'Sair', logout_path%></li>
-        </ul>
-    </nav>
-  </header>
+<h1><%= t('application.posts.my_posts') %></h1>
 
 <% if @posts.any? %>
   <ul>
@@ -16,14 +6,14 @@
       <li>
         <h3><%= post.title %></h3>
         <p><%= post.content.truncate(200) %></p>
-        <p><small>Publicado em: <%= post.created_at.strftime('%d/%m/%Y') %></small></p>
-        
+        <p><small><%= t('application.posts.published_on', date: post.created_at.strftime('%d/%m/%Y')) %></small></p>
+
         <% if post.tags.any? %>
           <div class="tags-container">
             <% post.tags.each do |tag| %>
               <span class="tag">
                 <%= tag.name %>
-                <%= form_with url: post_tag_path(post_id: post.id, id: tag.id), method: :delete, data: { confirm: "Tem certeza que deseja excluir esta tag?" }, local: true do |form| %>
+                <%= form_with url: post_tag_path(post_id: post.id, id: tag.id), method: :delete, data: { confirm: t('tags.confirm_remove') }, local: true do |form| %>
                   <%= form.submit 'X', class: 'btn btn-danger' %>
                 <% end %>
               </span>
@@ -32,16 +22,16 @@
         <% end %>
 
         <div>
-          <%= link_to 'Editar', edit_post_path(post), class: 'btn btn-primary' %>
-          <%= form_with url: post_path(post), method: :delete, data: { confirm: "Tem certeza que deseja excluir este post?" }, local: true do |form| %>
-            <%= form.submit 'Apagar', class: 'btn btn-danger' %>
+          <%= link_to t('application.posts.edit'), edit_post_path(post), class: 'btn btn-primary' %>
+          <%= form_with url: post_path(post), method: :delete, data: { confirm: t('posts.confirm_delete') }, local: true do |form| %>
+            <%= form.submit t('application.posts.delete'), class: 'btn btn-danger' %>
           <% end %>
         </div>
       </li>
     <% end %>
   </ul>
 <% else %>
-  <p>Você ainda não criou nenhum post.</p>
+  <p><%= t('application.posts.no_posts') %></p>
 <% end %>
 
-<%= link_to 'Voltar', posts_path %>
+<%= link_to t('application.posts.back'), posts_path %>

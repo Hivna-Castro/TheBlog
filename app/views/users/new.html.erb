@@ -1,47 +1,48 @@
- <body>
+ 
+  <div>
     <div>
       <div>
+        <h1><%= I18n.t('application.users.create.welcome') %></h1>
+        <p><%= I18n.t('application.users.create.create_post') %></p>
+      </div>
+
+      <div>
+        <h1><%= I18n.t('application.users.create.signup') %></h1>
+        <%= form_with(url: signup_path, local: true) do |form| %>
+          <div>
+            <%= form.label :name, I18n.t('application.users.create.name') %>
+            <%= form.text_field :name, placeholder: I18n.t('application.users.create.name_placeholder'), required: true, name: "user[name]" %>
+          </div>
           
-          <div >
-            <h1> Bem-vindo ao TheBlog!</h1>
-            <p> Venha criar seus posts diários </p>
+          <div>
+            <%= form.label :email, I18n.t('application.users.create.email') %>
+            <%= form.email_field :email, placeholder: I18n.t('application.users.create.email_placeholder'), required: true, name: "user[email]" %>
           </div>
 
           <div>
-            <h1> Cadastro</h1>
-            <%= form_with(url: signup_path, local: true) do |form| %>
-              <div >
-                <%= form.label :name, "Name" %>
-                <%= form.text_field :name, placeholder: "Insira seu nome", required: true, name: "user[name]" %>
-              </div>
-              <div>
-                <%= form.label :email, "Email" %>
-                <%= form.email_field :email, placeholder: "Insira seu email", required: true, name: "user[email]" %>
-              </div>
-              
-              <div >
-                <%= form.label :password, "Senha" %>
-                <%= form.password_field :password, placeholder: "Insira sua senha", required: true, name: "user[password]" %>
-              </div>
-              
-              <div>
-                <%= form.label :password_confirmation, "Confirmação de Senha"  %>
-                <%= form.password_field :password_confirmation, placeholder: "Insira sua senha", required: true, name: "user[password_confirmation]"  %>
-              </div>
-              
-              <div >
-                <%= form.submit "Cadastrar"%>
-              </div>
-            <% end %>
-            <p>
-              Já possui uma conta? 
-              <%= link_to 'Login', login_path %>
-            </p>
-            <p>
-              <%= link_to 'Home', posts_path %>
-            </p>
+            <%= form.label :password, I18n.t('application.users.create.password') %>
+            <%= form.password_field :password, placeholder: I18n.t('application.users.create.password_placeholder'), required: true, name: "user[password]" %>
+          </div>
 
-        </div>
+          <div>
+            <%= form.label :password_confirmation, I18n.t('application.users.create.password_confirmation') %>
+            <%= form.password_field :password_confirmation, placeholder: I18n.t('application.users.create.password_confirmation_placeholder'), required: true, name: "user[password_confirmation]" %>
+          </div>
+
+          <div>
+            <%= form.submit I18n.t('application.users.create.submit') %>
+          </div>
+        <% end %>
+
+        <p>
+          <%= I18n.t('application.users.create.already_have_account') %>
+          <%= link_to I18n.t('application.users.create.login'), login_path %>
+        </p>
+
+        <p>
+          <%= link_to I18n.t('application.users.create.home'), posts_path %>
+        </p>
       </div>
     </div>
-  </body>
+  </div>
+

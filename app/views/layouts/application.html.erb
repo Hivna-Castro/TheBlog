@@ -24,6 +24,37 @@
       <% end %>
     </div>
 
-    <%= yield %>
+    <% if controller_name == 'posts' && (action_name == 'index' || action_name == 'my_posts') %>
+      <header>
+        <nav>
+          <ul>
+            <p>TheBlog</p>
+            <% if logged_in? %>
+              <li><%= link_to t('application.nav.new_post'), new_post_path %></li>
+
+              <% if action_name == 'index' %>
+                <li><%= link_to t('application.nav.my_posts'), my_posts_posts_path %></li>
+              <% elsif action_name == 'my_posts' %>
+                <li><%= link_to t('application.nav.index'), posts_path %></li>
+              <% end %>
+
+              <li><%= link_to t('application.nav.settings'), edit_user_path(current_user) %></li>
+              <li><%= link_to t('application.nav.logout'), logout_path %></li>
+            <% else %>
+              <li><%= link_to t('application.nav.login'), login_path %></li>
+              <li><%= link_to t('application.nav.signup'), signup_path %></li>
+            <% end %>
+          </ul>
+        </nav>
+      </header>
+    <% end %>
+
+    <main>
+      <%= yield %>
+    </main>
+
+    <footer>
+      <p>&copy; <%= Time.now.year %> <%= t('application.footer') %></p>
+    </footer>
   </body>
 </html>

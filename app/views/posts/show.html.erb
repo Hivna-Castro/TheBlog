@@ -1,39 +1,40 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
-<p><small>Publicado em: <%= @post.created_at.strftime('%d/%m/%Y') %></small></p>
+<p><small><%= t('application.posts.published_on', date: @post.created_at.strftime('%d/%m/%Y')) %></small></p>
 
-<h2>Comentários</h2>
+<h2><%= t('application.comments.title') %></h2>
+
 <% if @comments.any? %>
   <% @post.comments.each do |comment| %>
     <div class="comment">
       <p><strong>
         <% if comment.anonymous || comment.user.nil? %>
-          Anônimo:
+          <%= t('application.comments.anonymous') %>:
         <% else %>
           <%= comment.user.name %>:
         <% end %>
       </strong> <%= comment.content %></p>
 
       <% if !comment.anonymous && comment.user == current_user %>
-        <%= form_with url: post_comment_path(@post, comment), method: :delete, data: { confirm: "Tem certeza?" } do %>
-          <%= submit_tag 'Excluir' %>
+        <%= form_with url: post_comment_path(@post, comment), method: :delete, data: { confirm: t('comments.confirm_delete') }, local: true do %>
+          <%= submit_tag t('application.comments.delete'), class: 'btn btn-danger' %>
         <% end %>
       <% end %>
     </div>
   <% end %>
 <% else %>
-  <p>Não há comentários ainda. Seja o primeiro a comentar!</p>
+  <p><%= t('application.comments.no_comments') %></p>
 <% end %>
 
-<h3>Deixe seu comentário</h3>
+<h3><%= t('application.comments.leave_your_comment') %></h3>
 <%= form_with model: [@post, Comment.new], local: true do |form| %>
   <div>
-    <%= form.label :content, "Comentário" %>
+    <%= form.label :content, t('application.comments.content_label') %>
     <%= form.text_area :content, rows: 6 %>
   </div>
   <div>
-    <%= form.submit "Comentar" %>
+    <%= form.submit t('application.comments.submit'), class: 'btn btn-primary' %>
   </div>
 <% end %>
 
-<%= link_to 'Voltar', posts_path %>
+<%= link_to t('application.posts.back'), posts_path %>

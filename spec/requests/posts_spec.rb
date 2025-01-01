@@ -57,8 +57,7 @@ RSpec.describe "Posts", type: :request do
           post_params = { post: { title: "Novo Post", content: "Conteúdo do post" } }
           post posts_path, params: post_params
           expect(response).to have_http_status(302)
-          follow_redirect! 
-          expect(response.body).to include(I18n.t('posts.create.success'))
+          expect(flash[:notice]).to include(I18n.t('posts.create.success'))
           expect(Post.last.tags).to be_empty 
         end
 
@@ -76,7 +75,13 @@ RSpec.describe "Posts", type: :request do
       it "não cria o post e exibe o formulário novamente" do
         post posts_path, params: invalid_post_params
         expect(response).to have_http_status(422) 
-        expect(flash[:alert]).to include(I18n.t('posts.create.failure', errors:  "Title can't be blank and Content can't be blank")) 
+        # Verifica se a mensagem de falha está no flash[:alert] ou flash[:notice]
+        expect(flash[:alert]).to include(I18n.t('posts.create.failure', errors: "Title can't be blank, Content can't be blank"))
+        
+        # Verifica se o formulário foi renderizado novamente
+        expect(response.body).to include('Criar Novo Post')  # Assumindo que você tenha um título ou algum texto do formulário na página
+        expect(response.body).to include("Title can't be blank")
+        expect(response.body).to include("Content can't be blank")
       end
 
     end
@@ -113,7 +118,7 @@ RSpec.describe "Posts", type: :request do
     
         patch post_path(post_obj), params: invalid_post_params
         expect(response).to have_http_status(422)
-        expect(flash.now[:alert]).to include(I18n.t('posts.update.failure', errors: "Title can't be blank and Content can't be blank"))
+        expect(response.body).to include(I18n.t('posts.update.failure', errors: "Title can't be blank, Content can't be blank"))
 
       end
     end

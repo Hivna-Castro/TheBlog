@@ -11,7 +11,7 @@ class UsersController < ApplicationController
         session[:user_id] = @user.id  
         redirect_to root_path, notice: I18n.t('users.create.success')
       else
-        flash.now[:alert]= I18n.t('users.create.failure', errors: @user.errors.full_messages.join(', '))
+        flash.now[:alert]= I18n.t('users.create.failure', errors: @user.errors.full_messages.to_sentence)
         render :new
       end
     end
