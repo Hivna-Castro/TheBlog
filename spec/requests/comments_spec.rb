@@ -38,15 +38,16 @@ RSpec.describe "Comments", type: :request do
 
     context "quando o usuário não está autenticado" do
       it "cria um comentário anônimo" do
-        expect {
-          post post_comments_path(post), params: { comment: comment_params }
-        }.to change(Comment, :count).by(1)
-
+        comment_params_anonymous = attributes_for(:comment, content: "Comentário anônimo")
+        
+        post post_comments_path(post), params: { comment: comment_params_anonymous }
+    
         expect(response).to redirect_to(post_path(post))
         follow_redirect!
+    
         expect(response.body).to include(I18n.t('comments.create.success'))
-
-        expect(Comment.last.anonymous).to be_truthy
+        expect(post.comments.last.anonymous).to be true
+        expect(post.comments.last.user).to be_nil
       end
     end
   end

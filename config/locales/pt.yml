@@ -159,10 +159,10 @@ pt:
   posts:
     create:
       success: "Post criado com sucesso!"
-      failure: "Falha ao criar o post: %{errors}"
+      failure: "Falha ao criar o post!"
     update:
       success: "Post atualizado com sucesso!"
-      failure: "Falha ao atualizar o post: %{errors}"
+      failure: "Falha ao atualizar o post!"
     destroy:
       success: "Post deletado com sucesso!"
       failure: "Falha ao deletar o post. Por favor, tente novamente."

@@ -188,10 +188,10 @@ en:
   posts:
     create:
       success: "Post successfully created!"
-      failure: "Failed to create the post: %{errors}"
+      failure: "Failed to create the post!"
     update:
       success: "Post successfully updated!"
-      failure: "Failed to update the post: %{errors}"
+      failure: "Failed to update the post!"
     destroy:
       success: "Post successfully deleted!"
       failure: "Failed to delete the post. Please try again."

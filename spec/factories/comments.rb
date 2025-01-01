@@ -5,7 +5,6 @@ FactoryBot.define do
     association :user 
 
     trait :anonymous do
-      anonymous { true }
       user { nil } 
     end
   end

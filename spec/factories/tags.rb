@@ -1,5 +1,5 @@
 FactoryBot.define do
     factory :tag do
-      name { Faker::Lorem.unique.word} 
+      name { Faker::Lorem.word }
     end
   end

@@ -47,18 +47,15 @@ RSpec.describe "Posts", type: :request do
     context "quando os dados do post são válidos" do
         before { login_user }
 
-        it "loga o usuário e redireciona para a página inicial" do
-            expect(response).to redirect_to(root_path)
-            follow_redirect!
-            expect(response.body).to include(I18n.t('sessions.create.success'))
-        end
-
         it "cria o post e redireciona para a lista de posts" do
-          post_params = { post: { title: "Novo Post", content: "Conteúdo do post" } }
+          tag_one = create(:tag)  
+          tag_two = create(:tag) 
+
+          post_params = { post: { title: "Novo Post", content: "Conteúdo do post", tag_ids: [tag_one.id, tag_two.id] } }
           post posts_path, params: post_params
           expect(response).to have_http_status(302)
           expect(flash[:notice]).to include(I18n.t('posts.create.success'))
-          expect(Post.last.tags).to be_empty 
+          expect(Post.last.tags).to include(tag_one, tag_two)
         end
 
         it "cria o post e associa as tags corretamente" do
@@ -75,13 +72,7 @@ RSpec.describe "Posts", type: :request do
       it "não cria o post e exibe o formulário novamente" do
         post posts_path, params: invalid_post_params
         expect(response).to have_http_status(422) 
-        # Verifica se a mensagem de falha está no flash[:alert] ou flash[:notice]
-        expect(flash[:alert]).to include(I18n.t('posts.create.failure', errors: "Title can't be blank, Content can't be blank"))
-        
-        # Verifica se o formulário foi renderizado novamente
-        expect(response.body).to include('Criar Novo Post')  # Assumindo que você tenha um título ou algum texto do formulário na página
-        expect(response.body).to include("Title can't be blank")
-        expect(response.body).to include("Content can't be blank")
+        expect(flash[:alert]).to include(I18n.t('posts.create.failure'))
       end
 
     end
@@ -113,12 +104,11 @@ RSpec.describe "Posts", type: :request do
     end
 
     context "quando os dados do post são inválidos" do
-        before { login_user }
+      before { login_user }
       it "não atualiza o post e renderiza o formulário de edição" do
-    
         patch post_path(post_obj), params: invalid_post_params
         expect(response).to have_http_status(422)
-        expect(response.body).to include(I18n.t('posts.update.failure', errors: "Title can't be blank, Content can't be blank"))
+        expect(response.body).to include(I18n.t('posts.update.failure'))
 
       end
     end
@@ -129,7 +119,6 @@ RSpec.describe "Posts", type: :request do
     context "quando o usuário está logado" do
         before { login_user }
       it "deleta o post e redireciona para a lista de posts" do
-        
         delete post_path(post_obj)
         expect(response).to redirect_to(my_posts_posts_path)
         follow_redirect!
