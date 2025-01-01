@@ -9,7 +9,7 @@ class PostsController < ApplicationController
       @posts = Post.order(created_at: :desc).page(params[:page]).per(3)
     end
   
-    @tags = Tag.joins(:posts).distinct 
+    @tags = Tag.order(:name) 
   end
   
   def show
@@ -19,6 +19,7 @@ class PostsController < ApplicationController
   
   def new
     @post = current_user.posts.new
+    @tags = Tag.order(:name)
   end
   
   def create
@@ -33,10 +34,11 @@ class PostsController < ApplicationController
   end
   
   def my_posts
-    @posts = current_user.posts.order(created_at: :desc)
+    @posts = current_user.posts.order(created_at: :desc).page(params[:page]).per(3)
   end
 
   def edit
+    @tags = Tag.order(:name)
   end
   
   def update
@@ -73,7 +75,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, tags_attributes: [:id, :name, :_destroy])
-  end
+    params.require(:post).permit(:title, :content, tag_ids: [])
+  end  
 
 end

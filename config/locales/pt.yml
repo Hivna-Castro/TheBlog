@@ -9,6 +9,7 @@ pt:
       login: "Entrar"
       signup: "Cadastrar-se"
       index: "Posts"
+      tags: "Tags"
     tags_filter:
       title: "Filtrar por Tags:"
       select_label: "Selecione uma tag:"
@@ -23,13 +24,14 @@ pt:
       delete: "Apagar"
       confirm_delete: "Tem certeza que deseja excluir este post?"
       no_posts: "Você ainda não criou nenhum post."
+      no_posts_for_tag: "Não há posts associados a essa tag."
       back: "Voltar"
       edit: "Editar Post"
       new: "Criar Novo Post"
       form:
         title: "Título"
         content: "Conteúdo"
-        tags: "Tags (separadas por vírgula)"
+        tags: "Selecione as Tags"
         create: "Criar Post"
         update: "Salvar Alterações"
         cancel: "Cancelar"
@@ -183,8 +185,14 @@ pt:
         current_password_invalid: "A senha atual que você digitou está incorreta."
 
   tags:
+    create:
+      success: "Tag %{tag_name} criada com sucesso."
+      failure: "Erro ao criar a tag. Por favor, tente novamente."
     destroy:
-      success: "A tag '%{tag_name}' foi removida com sucesso."
+      success: "Tag %{tag_name} deletada com sucesso."
+      associated_posts: "A tag %{tag_name} não pode ser deletada porque está associada a posts."
+    destroy_from_post:
+      success: "Tag %{tag_name} removida do post com sucesso."
 
   comments:
     create:

@@ -1,5 +1,14 @@
 <h1><%= t('application.posts.my_posts') %></h1>
 
+<div class="tags-filter">
+  <h3><%= t('application.tags_filter.title') %></h3>
+  <%= form_with url: posts_path, method: :get, local: true do |form| %>
+    <%= form.label :tag, t('application.tags_filter.select_label'), class: "filter-label" %>
+    <%= form.select :tag, Tag.order(:name).pluck(:name), include_blank: t('application.tags_filter.all_tags'), selected: params[:tag], class: "filter-select" %>
+    <%= form.submit t('application.tags_filter.filter_button'), class: "filter-button" %>
+  <% end %>
+</div>
+
 <% if @posts.any? %>
   <ul>
     <% @posts.each do |post| %>
@@ -13,7 +22,7 @@
             <% post.tags.each do |tag| %>
               <span class="tag">
                 <%= tag.name %>
-                <%= form_with url: post_tag_path(post_id: post.id, id: tag.id), method: :delete, data: { confirm: t('tags.confirm_remove') }, local: true do |form| %>
+                <%= form_with url: destroy_from_post_tag_path(tag, post_id: post.id), method: :delete, data: { confirm: t('application.tags.confirm_remove') }, local: true do |form| %>
                   <%= form.submit 'X', class: 'btn btn-danger' %>
                 <% end %>
               </span>
@@ -30,8 +39,15 @@
       </li>
     <% end %>
   </ul>
+  <div class="pagination">
+      <%= paginate @posts %>
+  </div>
 <% else %>
-  <p><%= t('application.posts.no_posts') %></p>
+  <% if params[:tag].present? && @posts.empty? %>
+    <p><%= t('application.posts.no_posts_for_tag') %></p>
+  <% elsif @posts.empty? %>
+    <p><%= t('application.posts.no_posts') %></p>
+  <% end %>
 <% end %>
 
 <%= link_to t('application.posts.back'), posts_path %>

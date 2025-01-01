@@ -1,16 +1,6 @@
 <h1><%= @post.persisted? ? t('application.posts.edit') : t('application.posts.new') %></h1>
 
 <%= form_with(model: post, local: true) do |form| %>
-  <% if post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(post.errors.count, "error") %> <%= t('errors.prohibited') %></h2>
-      <ul>
-        <% post.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="field">
     <%= form.label :title, t('application.posts.form.title') %>
@@ -18,17 +8,13 @@
   </div>
 
   <div class="field">
-    <%= form.label :content, t('application.posts.form.content') %>
-    <%= form.text_area :content %>
-  </div>
+    <%= form.label :tag_ids, t('application.posts.form.tags') %>
+    <%= form.select :tag_ids, options_from_collection_for_select(@tags || [], :id, :name, @post.tag_ids), {}, multiple: true, class: "filter-select" %>
 
-  <div class="field">
-    <%= form.label :tags, t('application.posts.form.tags') %>
-    <%= form.text_field :tags, value: post.tags.pluck(:name).join(', ') %>
   </div>
 
   <div class="actions">
-    <%= form.submit t('application.posts.form.create') %>
+      <%= form.submit @post.persisted? ? t('application.posts.form.update') : t('application.posts.form.create') %>
     <%= link_to t('application.posts.form.cancel'), posts_path %>
   </div>
 <% end %>

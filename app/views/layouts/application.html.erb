@@ -37,7 +37,8 @@
               <% elsif action_name == 'my_posts' %>
                 <li><%= link_to t('application.nav.index'), posts_path %></li>
               <% end %>
-
+            
+              <li><%= link_to t('application.nav.tags'), tags_path %></li>
               <li><%= link_to t('application.nav.settings'), edit_user_path(current_user) %></li>
               <li><%= link_to t('application.nav.logout'), logout_path %></li>
             <% else %>

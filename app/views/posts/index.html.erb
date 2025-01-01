@@ -1,32 +1,40 @@
-
 <section class="dashboard">
-     
+
   <div class="tags-filter">
     <h3><%= t('application.tags_filter.title') %></h3>
-      <%= form_with url: posts_path, method: :get, local: true do |form| %>
-        <%= form.label :tag, t('application.tags_filter.select_label'), class: "filter-label" %>
-        <%= form.select :tag, Tag.joins(:posts).distinct.pluck(:name), include_blank: t('application.tags_filter.all_tags'), selected: params[:tag], class: "filter-select" %>
-        <%= form.submit t('application.tags_filter.filter_button'), class: "filter-button" %>
-      <% end %>
+    <%= form_with url: posts_path, method: :get, local: true do |form| %>
+      <%= form.label :tag, t('application.tags_filter.select_label'), class: "filter-label" %>
+      <%= form.select :tag, Tag.order(:name).pluck(:name), include_blank: t('application.tags_filter.all_tags'), selected: params[:tag], class: "filter-select" %>
+      <%= form.submit t('application.tags_filter.filter_button'), class: "filter-button" %>
+    <% end %>
   </div>
 
   <div class="posts">
     <h2><%= t('application.posts.title') %></h2>
-    <% @posts.each do |post| %>
-      <div class="post">
-        <h3><%= post.title %></h3>
-        <p><%= post.content.truncate(200) %></p>
-        <% if post.tags.any? %>
+    <% if @posts.any? %>
+      <% @posts.each do |post| %>
+        <div class="post">
+          <h3><%= post.title %></h3>
+          <p><%= post.content.truncate(200) %></p>
+          <% if post.tags.any? %>
             <p><%= t('application.posts.tags') %>: <%= post.tags.map(&:name).join(", ") %></p>
-        <% end %>
-        <p><small><%= t('application.posts.published_on', date: l(post.created_at, format: :long)) %></small></p>
-        <%= link_to t('application.posts.read_more'), post_path(post) %>
-      </div>
+          <% end %>
+          <p><small><%= t('application.posts.published_on', date: l(post.created_at, format: :long)) %></small></p>
+          <%= link_to t('application.posts.read_more'), post_path(post) %>
+        </div>
+      <% end %>
+    <% else %>
+      <% if params[:tag].present? %>
+        <p><%= t('application.posts.no_posts_for_tag') %></p>
+      <% else %>
+        <p><%= t('application.posts.no_posts') %></p>
+      <% end %>
     <% end %>
-        
+
     <div class="pagination">
       <%= paginate @posts %>
     </div>
   </div>
+
 </section>
 

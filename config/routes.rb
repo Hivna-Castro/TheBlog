@@ -16,10 +16,15 @@ Rails.application.routes.draw do
 
   resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
     resources :comments, only: [:create, :destroy]
-    resources :tags, only: [:destroy]
     
     collection do  
       get :my_posts
+    end
+  end
+
+  resources :tags, only: [:index, :create, :destroy] do
+    member do
+      delete 'destroy_from_post/:post_id', to: 'tags#destroy_from_post', as: 'destroy_from_post'
     end
   end
 
