@@ -41,12 +41,17 @@ pt:
         tags: "Selecione as Tags"
         create: "Criar Post"
         update: "Salvar Alterações"
+        upload_file: "Upload de Arquivo TXT"
         cancel: "Cancelar"
     tags:
       confirm_remove: "Tem certeza que deseja excluir esta tag?"
-      name: "Nome"
-      upload_file: "Upload de Arquivo"
+      name:
+        label: "Nome"
+        placeholder: "Digite o nome da tag"
+      upload_file: "Upload de Arquivo TXT"
       create: "Criar Tag"
+      existing: "Tags Existentes"
+      delete: "Excluir"
     comments:
       title: "Comentários"
       anonymous: "Anônimo"

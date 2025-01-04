@@ -1,13 +1,13 @@
-<h1>Tags</h1>
+<h1><%= t('application.tags.create') %></h1>
 
 <div class="create-tag">
-  <h2>Criar Tag</h2>
+  <h2><%= t('application.tags.create') %></h2>
   <%= form_with(model: @tag, local: true, html: { multipart: true }) do |form| %>
     <div>
-      <%= form.label :name,  t('application.tags.name') %>
-      <%= form.text_field :name, placeholder: 'Digite o nome da tag'%>
+      <%= form.label :name, t('application.tags.name.label') %>
+      <%= form.text_field :name, placeholder: t('application.tags.name.placeholder') %>
     </div>
-    <div>
+    <div >
       <%= form.label :file, t('application.tags.upload_file') %>
       <%= form.file_field :file %>
     </div>
@@ -18,15 +18,14 @@
 </div>
 
 <div class="existing-tags">
-  <h2>Tags Existentes</h2>
+  <h2><%= t('application.tags.existing') %></h2>
   <ul>
     <% @tags.each do |tag| %>
       <li>
         <%= tag.name %>
-        <%= button_to 'Excluir', tag_path(tag), method: :delete, data: { confirm: 'Tem certeza?' }, class: 'btn btn-danger' %>
+        <%= button_to t('application.tags.delete'), tag_path(tag), method: :delete, data: { confirm: 'Tem certeza?' }, class: 'btn btn-danger' %>
       </li>
     <% end %>
   </ul>
 </div>
 
-<%= link_to t('application.posts.back'), posts_path %>

@@ -25,7 +25,7 @@
       <% end %>
     </div>
 
-    <% if controller_name == 'posts' && (action_name == 'index' || action_name == 'my_posts') %>
+    <% if (controller_name == 'posts' && (action_name == 'index' || action_name == 'my_posts')) || controller_name == 'tags' %>
       <header>
         <nav>
           <ul>
@@ -33,9 +33,9 @@
             <% if logged_in? %>
               <li><%= link_to t('application.nav.new_post'), new_post_path %></li>
 
-              <% if action_name == 'index' %>
+              <% if controller_name == 'posts' && action_name == 'index' %>
                 <li><%= link_to t('application.nav.my_posts'), my_posts_posts_path %></li>
-              <% elsif action_name == 'my_posts' %>
+              <% elsif (controller_name == 'posts' && action_name == 'my_posts') || controller_name == 'tags'  %>
                 <li><%= link_to t('application.nav.index'), posts_path %></li>
               <% end %>
             

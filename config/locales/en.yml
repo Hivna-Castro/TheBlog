@@ -64,12 +64,17 @@ en:
         tags: "Select Tags"
         create: "Create Post"
         update: "Save Changes"
+        upload_file: "Upload TXT File"
         cancel: "Cancel"
     tags:
       confirm_remove: "Are you sure you want to remove this tag?"
-      name: "Name"
-      upload_file: "Upload File"
+      name:
+        label: "Name"
+        placeholder: "Enter the tag name"
+      upload_file: "Upload TXT File"
       create: "Create Tag"
+      existing: "Existing Tags"
+      delete: "Delete"
     comments:
       title: "Comments"
       anonymous: "Anonymous"

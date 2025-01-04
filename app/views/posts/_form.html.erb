@@ -19,8 +19,8 @@
   </div>
 
   <% unless @post.persisted? %>
-    <div class="field">
-      <%= form.label :file, "Upload TXT file" %>
+    <div class="field" >
+      <%= form.label :file, t('application.posts.form.upload_file') %>
       <%= form.file_field :file %>
     </div>
   <% end %>
