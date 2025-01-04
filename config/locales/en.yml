@@ -54,6 +54,7 @@ en:
       confirm_delete: "Are you sure you want to delete this post?"
       no_posts: "You haven't created any posts yet."
       no_posts_for_tag: "There are no posts associated with this tag."
+      no_content: "Post content is empty"
       back: "Back"
       new: "Create New Post"
       edit: "Edit Post"

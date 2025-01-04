@@ -1,6 +1,6 @@
 <h1><%= @post.persisted? ? t('application.posts.edit') : t('application.posts.new') %></h1>
 
-<%= form_with(model: post, local: true) do |form| %>
+<%= form_with(model: post, local: true, html: { multipart: true }) do |form| %>
 
   <div class="field">
     <%= form.label :title, t('application.posts.form.title') %>
@@ -8,10 +8,22 @@
   </div>
 
   <div class="field">
+    <%= form.label :content, t('application.posts.form.content') %>
+    <%= form.text_area :content %> 
+  </div>
+
+  <div class="field">
     <%= form.label :tag_ids, t('application.posts.form.tags') %>
     <%= form.select :tag_ids, options_from_collection_for_select(@tags || [], :id, :name, @post.tag_ids), {}, multiple: true, class: "filter-select" %>
 
   </div>
+
+  <% unless @post.persisted? %>
+    <div class="field">
+      <%= form.label :file, "Upload TXT file" %>
+      <%= form.file_field :file %>
+    </div>
+  <% end %>
 
   <div class="actions">
       <%= form.submit @post.persisted? ? t('application.posts.form.update') : t('application.posts.form.create') %>

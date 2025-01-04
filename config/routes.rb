@@ -37,4 +37,8 @@ Rails.application.routes.draw do
     end
   end
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq' if Rails.env.development? || Rails.env.test?
+
+
 end

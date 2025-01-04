@@ -1,0 +1,9 @@
+<div class="post">
+    <h3><%= post.title %></h3>
+    <p><%= post.content&.truncate(200) || t('application.posts.no_content') %></p>
+    <% if post.tags.any? %>
+        <p><%= t('application.posts.tags') %>: <%= post.tags.map(&:name).join(", ") %></p>
+    <% end %>
+    <p><small><%= t('application.posts.published_on', date: l(post.created_at, format: :long)) %></small></p>
+    <%= link_to t('application.posts.read_more'), post_path(post) %>
+</div>

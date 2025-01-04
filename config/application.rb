@@ -28,5 +28,7 @@ module TheBlog
 
     config.i18n.available_locales = [:en, :pt]  
     # config.i18n.fallbacks = [I18n.default_locale]
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end

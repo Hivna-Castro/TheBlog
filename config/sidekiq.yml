@@ -1,0 +1,10 @@
+:queues:
+  - default
+  - posts
+  - tags
+# ---
+# :concurrency: 5 # Número de threads que o Sidekiq pode executar em paralelo
+# :queues:
+#   - [default, 3] # Prioridade maior
+#   - [uploads, 5] # Maior prioridade para a fila de uploads
+#   - [low, 1]     # Menor prioridade para jobs menos urgentes

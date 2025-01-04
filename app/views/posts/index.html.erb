@@ -9,19 +9,12 @@
     <% end %>
   </div>
 
+  <%= turbo_stream_from "posts" %>
   <div class="posts">
     <h2><%= t('application.posts.title') %></h2>
     <% if @posts.any? %>
       <% @posts.each do |post| %>
-        <div class="post">
-          <h3><%= post.title %></h3>
-          <p><%= post.content.truncate(200) %></p>
-          <% if post.tags.any? %>
-            <p><%= t('application.posts.tags') %>: <%= post.tags.map(&:name).join(", ") %></p>
-          <% end %>
-          <p><small><%= t('application.posts.published_on', date: l(post.created_at, format: :long)) %></small></p>
-          <%= link_to t('application.posts.read_more'), post_path(post) %>
-        </div>
+        <%= render partial: "post", locals: { post: post } %>
       <% end %>
     <% else %>
       <% if params[:tag].present? %>
