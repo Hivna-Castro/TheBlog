@@ -25,21 +25,18 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
   
-    # Verifica se há um arquivo anexado
     if params[:post][:file].present?
-      uploaded_file = params[:post][:file] # Corrigido o nome da variável
+      uploaded_file = params[:post][:file]
       file_path = Rails.root.join("tmp", uploaded_file.original_filename)
   
-      # Salva o arquivo temporariamente
       File.open(file_path, "wb") do |file|
         file.write(uploaded_file.read)
       end
   
-      # Agenda o processamento do arquivo via Sidekiq
       FileUploadJob.perform_async(file_path.to_s, current_user.id)
   
       redirect_to posts_path, notice: I18n.t('posts.create.success')
-      return # Garante que não executará o restante do método após agendar o job
+      return 
     end
   
     if @post.save

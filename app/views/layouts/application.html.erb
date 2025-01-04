@@ -8,6 +8,7 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
   </head>
 
   <body>
@@ -16,9 +17,9 @@
       <%= link_to 'Português', url_for(locale: 'pt') %>
     </div>
 
-    <div id="flash-messages" data-controller="flash">
+    <div class="flash-messages" data-controller="flash">
       <% flash.each do |type, message| %>
-        <div class="alert <%= "alert-#{type}" %>" data-flash-target="message">
+        <div class="flash-message <%= type %>">
           <%= message %>
         </div>
       <% end %>

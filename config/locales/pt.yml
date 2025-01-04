@@ -1,4 +1,10 @@
 pt:
+  views:
+    pagination:
+      previous: "Anterior"
+      next: "Próxima"
+      first: "Primeira"
+      last: "Última"
   application:
     title: "TheBlog"
     nav:

@@ -14,7 +14,7 @@
     <% @posts.each do |post| %>
       <li>
         <h3><%= post.title %></h3>
-        <p><%= post.content.truncate(200) %></p>
+        <p><%= post.content&.truncate(200) || t('application.posts.no_content') %></p>
         <p><small><%= t('application.posts.published_on', date: post.created_at.strftime('%d/%m/%Y')) %></small></p>
 
         <% if post.tags.any? %>
