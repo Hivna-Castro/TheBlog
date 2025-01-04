@@ -67,6 +67,9 @@ en:
         cancel: "Cancel"
     tags:
       confirm_remove: "Are you sure you want to remove this tag?"
+      name: "Name"
+      upload_file: "Upload File"
+      create: "Create Tag"
     comments:
       title: "Comments"
       anonymous: "Anonymous"

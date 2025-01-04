@@ -44,6 +44,9 @@ pt:
         cancel: "Cancelar"
     tags:
       confirm_remove: "Tem certeza que deseja excluir esta tag?"
+      name: "Nome"
+      upload_file: "Upload de Arquivo"
+      create: "Criar Tag"
     comments:
       title: "Comentários"
       anonymous: "Anônimo"

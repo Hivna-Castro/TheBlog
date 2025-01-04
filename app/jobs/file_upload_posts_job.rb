@@ -1,4 +1,4 @@
-class FileUploadJob
+class FileUploadPostsJob
   include Sidekiq::Job
 
   sidekiq_options queue: :posts

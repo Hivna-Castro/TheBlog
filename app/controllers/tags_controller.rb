@@ -9,12 +9,26 @@ class TagsController < ApplicationController
 
   def create
     @tag = Tag.new(tag_params)
-    if @tag.save
-      redirect_to tags_path, notice: I18n.t('tags.create.success', tag_name: @tag.name)
+  
+    if params[:tag][:file].present?
+      uploaded_file = params[:tag][:file]
+      file_path = Rails.root.join("tmp", uploaded_file.original_filename)
+  
+      File.open(file_path, "wb") do |file|
+        file.write(uploaded_file.read)
+      end
+  
+      FileUploadTagsJob.perform_async(file_path.to_s)
+  
+      flash[:notice] = t('tags.created_via_file')
+      redirect_to tags_path
+      return
+    elsif @tag.save
+      flash[:notice] = t('tags.created_successfully')
+      redirect_to tags_path
     else
-      @tags = Tag.all.order(:name)
-      flash.now[:alert] = I18n.t('tags.create.failure')
-      render :index
+      flash.now[:alert] = t('tags.create.failure')
+      render :index, status: :unprocessable_entity
     end
   end
 
@@ -46,6 +60,6 @@ class TagsController < ApplicationController
   end
 
   def tag_params
-    params.require(:tag).permit(:name)
+    params.require(:tag).permit(:name, :file)
   end
 end

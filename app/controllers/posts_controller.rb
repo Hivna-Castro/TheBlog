@@ -33,7 +33,7 @@ class PostsController < ApplicationController
         file.write(uploaded_file.read)
       end
   
-      FileUploadJob.perform_async(file_path.to_s, current_user.id)
+      FileUploadPostsJob.perform_async(file_path.to_s, current_user.id)
   
       redirect_to posts_path, notice: I18n.t('posts.create.success')
       return 
