@@ -1,5 +1,5 @@
 
-  <%= form_with(model: @tag, local: true, html: { multipart: true }) do |form| %>
+  <%= form_with(model: @tag, local: true, html: { multipart: true, data: { controller: "tag" }  }) do |form| %>
     <div class="flex flex-col gap-half mb-2 text-center">
       <h3 class="text-2xl font-semibold leading-none"> <%= t('application.tags.create') %></h3>
     </div>
@@ -7,11 +7,11 @@
     <div class="flex gap mb-4" >
       <div class="flex flex-col gap-half">
         <%= form.label :name, t('application.tags.name.label'), class: "text-sm font-medium leading-none" %>
-        <%= form.text_field :name, placeholder: t('application.tags.name.placeholder'), class: "input" %>
+        <%= form.text_field :name, placeholder: t('application.tags.name.placeholder'), class: "input", data: { tag_target: "name", action: "input->tag#onInput" } %>
       </div>
       <div class="flex flex-col gap-half">
         <%= form.label :file, t('application.tags.upload_file'), class: "text-sm font-medium leading-none" %>
-        <%= form.file_field :file, class: " file-input input"  %>
+        <%= form.file_field :file, class: " file-input input", data: { tag_target: "file", action: "change->tag#onFileChange" }   %>
       </div>
     </div>
     <div class="flex items-center mb-4">
