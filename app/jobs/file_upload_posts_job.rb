@@ -3,7 +3,7 @@ class FileUploadPostsJob
 
   sidekiq_options queue: :posts
 
-  def perform(file_path, user_id)
+  def perform(file_path, user_id,tag_ids)
     return unless File.exist?(file_path) 
 
     File.open(file_path, "r") do |file|
@@ -13,7 +13,9 @@ class FileUploadPostsJob
       content = lines.join("\n").strip 
 
       user = User.find(user_id)
-      user.posts.create!(title: title, content: content)
+      post = user.posts.create!(title: title, content: content)
+
+      post.tag_ids = tag_ids
     end
     File.delete(file_path) if File.exist?(file_path)
   end

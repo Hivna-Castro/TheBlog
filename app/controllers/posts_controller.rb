@@ -33,7 +33,7 @@ class PostsController < ApplicationController
         file.write(uploaded_file.read)
       end
   
-      FileUploadPostsJob.perform_async(file_path.to_s, current_user.id)
+      FileUploadPostsJob.perform_async(file_path.to_s, current_user.id, params[:post][:tag_ids])
   
       redirect_to posts_path, notice: I18n.t('posts.create.success')
       return 
@@ -46,6 +46,7 @@ class PostsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+    
   
   def my_posts
     @posts = current_user.posts.order(created_at: :desc).page(params[:page]).per(3)

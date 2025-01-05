@@ -1,5 +1,5 @@
  
-<%= form_with(model: post, local: true, html: { multipart: true, class: "post-form" }) do |form| %>
+<%= form_with(model: post, local: true, html: { multipart: true, class: "post-form", data: { controller: "post" } }) do |form| %>
   <div class="flex flex-col gap-half mb-2 text-center">
     <h3 class="text-2xl font-semibold leading-none"><%= @post.persisted? ? t('application.posts.edit') : t('application.posts.new') %></h3>
   </div>
@@ -7,18 +7,18 @@
 
     <div class="flex flex-col gap-half">
       <%= form.label :title, t('application.posts.form.title'), class: "text-sm font-medium leading-none" %>
-      <%= form.text_field :title, placeholder: t('application.posts.form.title_placeholder'), class: "input" %>
+      <%= form.text_field :title, placeholder: t('application.posts.form.title_placeholder'), class: "input", data: { post_target: "title", action: "input->post#onInput" }  %>
     </div>
 
     <div class="flex flex-col gap-half">
       <%= form.label :content, t('application.posts.form.content'), class: "text-sm font-medium leading-none" %>
-      <%= form.text_area :content, placeholder: t('application.posts.form.content_placeholder'),  class: "input" %> 
+      <%= form.text_area :content, placeholder: t('application.posts.form.content_placeholder'),  class: "input", data: { post_target: "content", action: "input->post#onInput" }  %> 
     </div>
 
     <% unless @post.persisted? %>
       <div class="flex flex-col gap-half" >
         <%= form.label :file, t('application.posts.form.upload_file'), class: "text-sm font-medium leading-none" %>
-        <%= form.file_field :file, class: " file-input input" %>
+        <%= form.file_field :file, class: " file-input input", data: { post_target: "file", action: "change->post#onFileChange" } %>
       </div>
     <% end %>
 
