@@ -45,11 +45,18 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 gem 'kaminari'
+
 gem 'interactor'
+
 gem 'dotenv-rails', groups: [:development, :test]
+
 gem 'rails-i18n'
+
 gem 'sidekiq'
+
 gem 'activestorage'
+
+gem "css-zero", "~> 0.0.78"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

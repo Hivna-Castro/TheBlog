@@ -1,21 +1,22 @@
-<h1><%= t('application.posts.my_posts') %></h1>
 
-<div class="tags-filter">
-  <h3><%= t('application.tags_filter.title') %></h3>
-  <%= form_with url: posts_path, method: :get, local: true do |form| %>
-    <%= form.label :tag, t('application.tags_filter.select_label'), class: "filter-label" %>
-    <%= form.select :tag, Tag.order(:name).pluck(:name), include_blank: t('application.tags_filter.all_tags'), selected: params[:tag], class: "filter-select" %>
-    <%= form.submit t('application.tags_filter.filter_button'), class: "filter-button" %>
-  <% end %>
+<div class="flex flex-col gap-half">
+  <h3 class="text-2xl font-semibold leading-none mb-2 text-center"> <%= t('application.posts.my_posts') %> </h3>
 </div>
 
+ <div class="tags-filter">
+    <%= form_with url: posts_path, method: :get, local: true do |form| %>
+      <%= form.select :tag, Tag.order(:name).pluck(:name), include_blank: t('application.tags_filter.all_tags'), selected: params[:tag]%>
+      <%= form.submit t('application.tags_filter.filter_button'), class: 'filter-button'  %>
+    <% end %>
+  </div>
+
 <% if @posts.any? %>
-  <ul>
+  <div class="container-myposts">
     <% @posts.each do |post| %>
-      <li>
-        <h3><%= post.title %></h3>
-        <p><%= post.content&.truncate(200) || t('application.posts.no_content') %></p>
-        <p><small><%= t('application.posts.published_on', date: post.created_at.strftime('%d/%m/%Y')) %></small></p>
+      <div class="post">
+        <h4 class="text-2xl font-semibold leading-none"><%= post.title %></h4>
+        <p id="content"><%= post.content&.truncate(200) || t('application.posts.no_content') %></p>
+        <p><small><%= t('application.posts.published_on', date: l(post.created_at.in_time_zone('America/Sao_Paulo'), format: :long)) %></small></p>
 
         <% if post.tags.any? %>
           <div class="tags-container">
@@ -30,24 +31,24 @@
           </div>
         <% end %>
 
-        <div>
-          <%= link_to t('application.posts.edit'), edit_post_path(post), class: 'btn btn-primary' %>
+        <div class="flex justify-end items-center gap mt-6">
+          <%= link_to t('application.posts.edit'), edit_post_path(post), class: 'btn' %>
           <%= form_with url: post_path(post), method: :delete, data: { confirm: t('posts.confirm_delete') }, local: true do |form| %>
-            <%= form.submit t('application.posts.delete'), class: 'btn btn-danger' %>
+            <%= form.submit t('application.posts.delete'), class: 'btn btn--negative ' %>
           <% end %>
         </div>
-      </li>
+      </div>
     <% end %>
-  </ul>
+  </div>
+
   <div class="pagination">
       <%= paginate @posts %>
   </div>
+
 <% else %>
   <% if params[:tag].present? && @posts.empty? %>
-    <p><%= t('application.posts.no_posts_for_tag') %></p>
+    <p class="text-sm text-subtle"><%= t('application.posts.no_posts_for_tag') %></p>
   <% elsif @posts.empty? %>
-    <p><%= t('application.posts.no_posts') %></p>
+    <p class="text-sm text-subtle"><%= t('application.posts.no_posts') %></p>
   <% end %>
 <% end %>
-
-<%= link_to t('application.posts.back'), posts_path %>

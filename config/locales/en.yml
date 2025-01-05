@@ -33,15 +33,14 @@ en:
     nav:
       new_post: "New Post"
       my_posts: "My Posts"
-      settings: "Settings"
+      edit_profile: "Edit Profile"
       logout: "Logout"
       login: "Login"
       signup: "Sign Up"
       index: "Posts"
       tags: "Tags"
     tags_filter:
-      title: "Filter by Tags:"
-      select_label: "Select a tag:"
+      select_label: "Filter by Tags:"
       all_tags: "All Tags"
       filter_button: "Filter"
     posts:
@@ -65,6 +64,8 @@ en:
         create: "Create Post"
         update: "Save Changes"
         upload_file: "Upload TXT File"
+        title_placeholder: "Enter your post title"
+        content_placeholder: "Enter your post content"
         cancel: "Cancel"
     tags:
       confirm_remove: "Are you sure you want to remove this tag?"
@@ -83,12 +84,14 @@ en:
       leave_your_comment: "Leave your comment"
       content_label: "Comment"
       submit: "Comment"
+      delete: "Delete"
     errors:
       count: "error(s)"
       prohibited: "prevented this post from being saved"
     sessions:
       login:
         title: "Login"
+        subtitle: "Enter your email and password to access your account."
       create:
         email: "Email"
         password: "Password"
@@ -99,9 +102,8 @@ en:
         home: "Home"
     users:
       create:
-        welcome: "Welcome to TheBlog!"
-        create_post: "Come and create your daily posts"
         signup: "Sign Up"
+        subtitle: "Enter your information to create an account."
         name: "Name"
         name_placeholder: "Enter your name"
         email: "Email"
@@ -126,9 +128,12 @@ en:
         back: "Back"
       forgot_password:
         title: "Forgot My Password"
-        instructions: "Enter the email associated with your account. We will send you a link to reset your password."
+        instructions: "Enter the email associated with your account."
+        send_link: "We will send you a link to reset your password."
         email: "Email"
         submit: "Send Instructions"
+        email_placeholder: "Enter your email"
+        back: "Back"
       reset_password:
         title: "Reset Password"
         instruction: "Set a new password for your account."

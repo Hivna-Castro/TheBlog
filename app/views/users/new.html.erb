@@ -1,48 +1,41 @@
- 
-  <div>
-    <div>
-      <div>
-        <h1><%= I18n.t('application.users.create.welcome') %></h1>
-        <p><%= I18n.t('application.users.create.create_post') %></p>
-      </div>
 
-      <div>
-        <h1><%= I18n.t('application.users.create.signup') %></h1>
-        <%= form_with(url: signup_path, local: true) do |form| %>
-          <div>
-            <%= form.label :name, I18n.t('application.users.create.name') %>
-            <%= form.text_field :name, placeholder: I18n.t('application.users.create.name_placeholder'), required: true, name: "user[name]" %>
-          </div>
-          
-          <div>
-            <%= form.label :email, I18n.t('application.users.create.email') %>
-            <%= form.email_field :email, placeholder: I18n.t('application.users.create.email_placeholder'), required: true, name: "user[email]" %>
-          </div>
-
-          <div>
-            <%= form.label :password, I18n.t('application.users.create.password') %>
-            <%= form.password_field :password, placeholder: I18n.t('application.users.create.password_placeholder'), required: true, name: "user[password]" %>
-          </div>
-
-          <div>
-            <%= form.label :password_confirmation, I18n.t('application.users.create.password_confirmation') %>
-            <%= form.password_field :password_confirmation, placeholder: I18n.t('application.users.create.password_confirmation_placeholder'), required: true, name: "user[password_confirmation]" %>
-          </div>
-
-          <div>
-            <%= form.submit I18n.t('application.users.create.submit') %>
-          </div>
-        <% end %>
-
-        <p>
-          <%= I18n.t('application.users.create.already_have_account') %>
-          <%= link_to I18n.t('application.users.create.login'), login_path %>
-        </p>
-
-        <p>
-          <%= link_to I18n.t('application.users.create.home'), posts_path %>
-        </p>
-      </div>
-    </div>
+<%= form_with(url: signup_path, class: "card ", local: true) do |form| %>
+  <div class="flex flex-col gap-half text-center"">
+    <h3 class="text-2xl font-semibold leading-none"> <%= t('application.users.create.signup')%>  </h3>
+    <p class="text-sm text-subtle"><%= t('application.users.create.subtitle')%></p>
   </div>
+  <div class="flex flex-col gap mb-4" >
+    <div class="flex flex-col gap-half">
+      <%= form.label :name, I18n.t('application.users.create.name'), class: "text-sm font-medium leading-none" %>
+      <%= form.text_field :name, placeholder: I18n.t('application.users.create.name_placeholder'), class: "input", required: true, name: "user[name]" %>
+    </div>
+          
+    <div class="flex flex-col gap-half">
+      <%= form.label :email, I18n.t('application.users.create.email'), class: "text-sm font-medium leading-none" %>
+      <%= form.email_field :email, placeholder: I18n.t('application.users.create.email_placeholder'), class: "input", required: true, name: "user[email]" %>
+    </div>
+
+    <div class="flex flex-col gap-half">
+      <%= form.label :password, I18n.t('application.users.create.password'), class: "text-sm font-medium leading-none" %>
+      <%= form.password_field :password, placeholder: I18n.t('application.users.create.password_placeholder'), class: "input", required: true, name: "user[password]" %>
+    </div>
+
+    <div class="flex flex-col gap-half">
+      <%= form.label :password_confirmation, I18n.t('application.users.create.password_confirmation'), class: "text-sm font-medium leading-none" %>
+      <%= form.password_field :password_confirmation, placeholder: I18n.t('application.users.create.password_confirmation_placeholder'), class: "input", required: true, name: "user[password_confirmation]" %>
+    </div>
+  </div>    
+
+  <div class="flex items-center mb-4">
+    <%= form.submit I18n.t('application.users.create.submit'), class: "btn btn--primary i-full" %>
+  </div>
+  
+  <p class="text-sm text-subtle text-center">
+    <%= I18n.t('application.users.create.already_have_account') %>
+    <%= link_to I18n.t('application.users.create.login'), login_path %>
+  </p>
+
+<% end %>
+
+
 

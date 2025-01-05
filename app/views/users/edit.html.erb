@@ -1,35 +1,45 @@
-<h1><%= I18n.t('application.users.edit_profile.title') %></h1>
-
-<%= form_with model: @user, local: true do |form| %>
-  <div>
-    <%= form.label :name, I18n.t('application.users.edit_profile.name') %>
-    <%= form.text_field :name, value: @user.name, required: true %>
+<%= form_with model: @user,  class: "post-form", local: true do |form| %>
+  <div class="flex flex-col gap-half mt-4 text-center">
+    <h3 class="text-2xl font-semibold leading-none"> <%= t('application.users.edit_profile.title') %>  </h3>
   </div>
 
-  <div>
-    <%= form.label :email, I18n.t('application.users.edit_profile.email') %>
-    <%= form.email_field :email, value: @user.email, required: true %>
+  <div class="flex flex-col gap mb-4">
+    <div class="flex flex-col gap-half">
+      <%= form.label :name, I18n.t('application.users.edit_profile.name'), class: "text-sm font-medium leading-none" %>
+      <%= form.text_field :name, value: @user.name, required: true, class: "input" %>
+    </div>
+
+    <div class="flex flex-col gap-half">
+      <%= form.label :email, I18n.t('application.users.edit_profile.email'), class: "text-sm font-medium leading-none" %>
+      <%= form.email_field :email, value: @user.email, required: true, class: "input" %>
+    </div>
   </div>
 
-  <h3><%= I18n.t('application.users.edit_profile.change_password') %></h3>
-  <div>
-    <%= form.label :current_password, I18n.t('application.users.edit_profile.current_password') %>
-    <%= form.password_field :current_password %>
+  <div class="flex flex-col gap-half">
+    <h4 class="text-1xl font-semibold leading-none"> <%= t('application.users.edit_profile.change_password') %>  </h4>
   </div>
 
-  <div>
-    <%= form.label :password, I18n.t('application.users.edit_profile.new_password') %>
-    <%= form.password_field :password %>
+  <div class="flex flex-col gap mb-2">
+    <div class="flex flex-col gap-half">
+      <%= form.label :current_password, I18n.t('application.users.edit_profile.current_password'), class: "text-sm font-medium leading-none" %>
+      <%= form.password_field :current_password, class: "input" %>
+    </div>
+    <div class="flex flex-col gap-half">
+      <%= form.label :password, I18n.t('application.users.edit_profile.new_password'), class: "text-sm font-medium leading-none" %>
+      <%= form.password_field :password, class: "input" %>
+    </div>
+
+    <div class="flex flex-col gap-half">
+      <%= form.label :password_confirmation, I18n.t('application.users.edit_profile.confirm_new_password'), class: "text-sm font-medium leading-none" %>
+      <%= form.password_field :password_confirmation, class: "input" %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :password_confirmation, I18n.t('application.users.edit_profile.confirm_new_password') %>
-    <%= form.password_field :password_confirmation %>
+  <div class="flex items-center mb-2">
+    <%= form.submit I18n.t('application.users.edit_profile.submit'), class: "btn btn--primary i-full" %>
   </div>
-
-  <div>
-    <%= form.submit I18n.t('application.users.edit_profile.submit') %>
+  <div class="flex items-center">
+    <%= link_to I18n.t('application.users.edit_profile.back'), posts_path, class: "btn btn--negative  i-full" %>
   </div>
 <% end %>
 
-<%= link_to I18n.t('application.users.edit_profile.back'), posts_path %>

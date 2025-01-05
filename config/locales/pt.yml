@@ -10,15 +10,14 @@ pt:
     nav:
       new_post: "Novo Post"
       my_posts: "Meus Posts"
-      settings: "Configurações"
+      edit_profile: "Editar Perfil"
       logout: "Sair"
       login: "Entrar"
       signup: "Cadastrar-se"
       index: "Posts"
       tags: "Tags"
     tags_filter:
-      title: "Filtrar por Tags:"
-      select_label: "Selecione uma tag:"
+      select_label: "Filtrar por Tags:"
       all_tags: "Todas as Tags"
       filter_button: "Filtrar"
     posts:
@@ -42,6 +41,8 @@ pt:
         create: "Criar Post"
         update: "Salvar Alterações"
         upload_file: "Upload de Arquivo TXT"
+        title_placeholder: "Insira o título do post"
+        content_placeholder: "Insira o conteúdo do post"
         cancel: "Cancelar"
     tags:
       confirm_remove: "Tem certeza que deseja excluir esta tag?"
@@ -60,12 +61,14 @@ pt:
       leave_your_comment: "Deixe seu comentário"
       content_label: "Comentário"
       submit: "Comentar"
+      delete: "Excluir"
     errors:
       count: "erro(s)"
       prohibited: "proibiram este post de ser salvo"
     sessions:
       login:
         title: "Login"
+        subtitle: "Insira seu e-mail e senha para acessar sua conta."
       create:
         email: "E-mail"
         password: "Senha"
@@ -76,9 +79,8 @@ pt:
         home: "Home"
     users:
       create:
-        welcome: "Bem-vindo ao TheBlog!"
-        create_post: "Venha criar seus posts diários"
         signup: "Cadastro"
+        subtitle: "Insira suas informações para criar uma conta."
         name: "Nome"
         name_placeholder: "Insira seu nome"
         email: "Email"
@@ -103,9 +105,12 @@ pt:
         back: "Voltar"
       forgot_password:
         title: "Esqueci Minha Senha"
-        instructions: "Insira o e-mail associado à sua conta. Enviaremos um link para redefinir sua senha."
+        instructions: "Insira o e-mail associado à sua conta."
+        send_link: "Enviaremos um link para redefinir sua senha."
         email: "E-mail"
         submit: "Enviar Instruções"
+        email_placeholder: "Enter your email"
+        back: "Voltar"
       reset_password:
         title: "Redefinir Senha"
         instruction: "Defina uma nova senha para sua conta."
