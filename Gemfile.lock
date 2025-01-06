@@ -252,7 +252,10 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.13.2)
+    ruby_http_client (3.5.5)
     securerandom (0.4.1)
+    sendgrid-ruby (6.7.0)
+      ruby_http_client (~> 3.4)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
     sidekiq (7.3.7)
@@ -318,6 +321,7 @@ DEPENDENCIES
   rails-i18n
   redis (>= 4.0.1)
   rspec-rails
+  sendgrid-ruby
   shoulda-matchers
   sidekiq
   sprockets-rails

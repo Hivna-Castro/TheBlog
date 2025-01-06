@@ -11,15 +11,19 @@ class User < ApplicationRecord
                        length: { minimum: 8, message: I18n.t('activerecord.errors.models.user.attributes.password.too_short') },
                        confirmation: { message: I18n.t('activerecord.errors.models.user.attributes.password.confirmation') }, on: :update, allow_blank: true
 
-  def generate_password_reset_token!
-    update!(
-      reset_password_token: SecureRandom.hex(10),
-      reset_password_sent_at: Time.current
-    )
+  def generate_password_reset_token
+    self.reset_password_token = SecureRandom.hex(10)
+    self.reset_password_sent_at = Time.current
+
+    if save
+      reset_password_token
+    else
+      nil
+    end
   end
 
   def password_reset_token_valid?
-    reset_password_sent_at > 3.minutes.ago
+    reset_password_sent_at > 50.minutes.ago
   end
 
   def clear_password_reset_token!

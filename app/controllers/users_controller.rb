@@ -48,11 +48,23 @@ class UsersController < ApplicationController
     end
 
     def forgot_password
-      result = Users::Interactors::GeneratePasswordResetToken.call(email: params[:email])
+
+      user = User.find_by(email: params[:email])
+
+      if user.nil?
+        flash[:alert] = I18n.t('users.forgot_password.email_not_found')
+        return render :forgot_password_form
+      end
+
+      token = user.generate_password_reset_token
+
+      reset_link = reset_password_form_users_url(token: token )
+
+      result = Users::Organizers::SendEmailResetPassword.call(email: params[:email], user: user, reset_link: reset_link, token: token)
 
       if result.success?
         flash[:notice] = result.message
-        render :forgot_password_form
+        redirect_to login_path
       else
         flash[:alert] = result.error
         render :forgot_password_form
@@ -65,18 +77,30 @@ class UsersController < ApplicationController
     end
 
     def reset_password
-      result = Users::Interactors::ResetPassword.call(
-        token: params[:token],
-        password: params[:password],
-        password_confirmation: params[:password_confirmation]
-      )
 
-      if result.success?
-        redirect_to login_path, notice: result.message
+      @user = User.find_by(reset_password_token: params[:token])
+
+      if @user.nil? || !@user.password_reset_token_valid?
+        flash[:alert] = I18n.t('users.reset_password.invalid_token')
+        redirect_to login_path
+        return
+      end
+
+      if params[:password] != params[:password_confirmation]
+        flash[:alert] = I18n.t('users.reset_password.password_mismatch')
+        @token = params[:token] 
+        render :reset_password_form
+        return
+      end
+    
+      if @user.update(password: params[:password], password_confirmation: params[:password_confirmation])
+        @user.clear_password_reset_token!
+        flash[:notice] = I18n.t('users.reset_password.success')
+        redirect_to login_path
       else
-        flash[:alert] = result.error
+        flash[:alert] = @user.errors.full_messages.to_sentence
         @token = params[:token]
-        render :reset_password
+        render :reset_password_form
       end
     end
   
