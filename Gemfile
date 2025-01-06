@@ -58,6 +58,8 @@ gem 'activestorage'
 
 gem "css-zero", "~> 0.0.78"
 
+gem 'faker'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
@@ -78,10 +80,8 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "rspec-rails"
 
-   gem 'factory_bot_rails'
+  gem 'factory_bot_rails'
 
-   gem 'faker'
-
-   gem 'shoulda-matchers', require: false
+  gem 'shoulda-matchers', require: false
  
 end
