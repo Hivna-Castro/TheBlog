@@ -26,9 +26,9 @@ module Users
         puts response.status_code
 
         if response.status_code.to_i >= 400
-          context.fail!(error: "Falha ao enviar e-mail: #{response.body}")
+          context.fail!(error: I18n.t('users.forgot_password.failure'))
         else
-          context.message = "E-mail enviado com sucesso para #{context.email}!"
+          context.message = I18n.t('users.forgot_password.success')
         end
       end
     end

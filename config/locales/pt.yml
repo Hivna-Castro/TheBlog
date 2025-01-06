@@ -193,8 +193,9 @@ pt:
       failure: "Usuário não encontrado. Por favor, verifique o e-mail e tente novamente."
     reset_password:
       success: "Sua senha foi redefinida com sucesso."
-      failure: "Token de redefinição inválido ou expirado."
+      failure: "Sua senha não foi redefinida."
       password_validation_error: "A senha deve ter no mínimo 8 caracteres."
+      invalid_token: "Token de redefinição inválido ou expirado"
     create:
       success: "Conta criada com sucesso!"
       failure: "Falha ao criar o usuário: %{errors}"

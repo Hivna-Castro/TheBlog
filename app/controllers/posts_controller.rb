@@ -42,6 +42,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to root_path, notice: I18n.t('posts.create.success')
     else
+      @tags = Tag.all
       flash.now[:alert] = I18n.t('posts.create.failure', errors: @post.errors.full_messages.to_sentence)
       render :new, status: :unprocessable_entity
     end
@@ -67,6 +68,7 @@ class PostsController < ApplicationController
       update_tags
       redirect_to my_posts_posts_path, notice: I18n.t('posts.update.success')
     else
+      @tags = Tag.all
       flash.now[:alert] = I18n.t('posts.update.failure', errors: @post.errors.full_messages.to_sentence)
       render :edit, status: :unprocessable_entity
     end

@@ -21,22 +21,22 @@ RSpec.describe User, type: :model do
   describe 'methods' do
     let(:user) { create(:user) }
     
-    describe '#generate_password_reset_token!' do
+    describe '#generate_password_reset_token' do
       it 'generates a reset password token and sets the timestamp' do
-        user.generate_password_reset_token!
+        user.generate_password_reset_token
         expect(user.reset_password_token).to be_present
         expect(user.reset_password_sent_at).to be_present
       end
     end
 
     describe '#password_reset_token_valid?' do
-      it 'returns true if the token was generated less than 3 minutes ago' do
+      it 'returns true if the token was generated less than 50 minutes ago' do
         user.update(reset_password_sent_at: 2.minutes.ago)
         expect(user.password_reset_token_valid?).to eq(true)
       end
 
-      it 'returns false if the token was generated more than 3 minutes ago' do
-        user.update(reset_password_sent_at: 5.minutes.ago)
+      it 'returns false if the token was generated more than 50 minutes ago' do
+        user.update(reset_password_sent_at: 55.minutes.ago)
         expect(user.password_reset_token_valid?).to eq(false)
       end
     end

@@ -28,7 +28,7 @@ RSpec.describe Users::Interactors::ResetPassword, type: :interactor do
           interactor = described_class.call(params)
 
           expect(interactor).to be_failure
-          expect(interactor.error).to match(I18n.t('users.reset_password.password_validation_error')) 
+          expect(interactor.error).to match(I18n.t('users.reset_password.failure')) 
         end
       end
     end
@@ -40,7 +40,7 @@ RSpec.describe Users::Interactors::ResetPassword, type: :interactor do
         interactor = described_class.call(params)
 
         expect(interactor).to be_failure
-        expect(interactor.error).to eq(I18n.t('users.reset_password.failure'))
+        expect(interactor.error).to eq(I18n.t('users.reset_password.invalid_token'))
       end
     end
   end

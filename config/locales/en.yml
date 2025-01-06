@@ -216,8 +216,9 @@ en:
       failure: "User not found. Please check the email and try again."
     reset_password:
       success: "Your password has been successfully reset."
-      failure: "Invalid or expired reset token."
+      failure: "Your password could not be reset."
       password_validation_error: "Password must be at least 8 characters long."
+      invalid_token: "Invalid or expired reset token"
     create:
       success: "Account successfully created!"
       failure: "Failed to create user: %{errors}"

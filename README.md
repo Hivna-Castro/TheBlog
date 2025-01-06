@@ -83,7 +83,6 @@ GMAIL_USERNAME=GMAIL_PARA_MADAR_EMAILS
 6. Inicie o Sidekiq para processar jobs em segundo plano:
    bundle exec sidekiq
 
-Autor
 Desenvolvido por Hivna Castro.
 E-mail: castrohivna@gmail.com
 Sinta-se à vontade para entrar em contato!

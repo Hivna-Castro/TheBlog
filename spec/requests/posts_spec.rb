@@ -10,7 +10,7 @@ RSpec.describe "Posts", type: :request do
   end
   
   describe "GET /posts" do
-    it "exibe a lista de posts" do
+    it "show the list of posts" do
       get posts_path
       expect(response).to have_http_status(:ok)
       expect(response.body).to include("Posts")
@@ -18,7 +18,7 @@ RSpec.describe "Posts", type: :request do
   end
 
   describe "GET /posts/:id" do
-    it "exibe o post" do
+    it "show the post" do
       get post_path(post_obj)
       expect(response).to have_http_status(:ok)
       expect(response.body).to include(post_obj.title)
@@ -26,17 +26,17 @@ RSpec.describe "Posts", type: :request do
   end
 
   describe "GET /posts/new" do
-    context "quando o usuário está logado" do
+    context "when the user is logged in" do
       before { login_user }
 
-      it "exibe o formulário de novo post" do
+      it "show the new post form" do
         get new_post_path
         expect(response).to have_http_status(:ok)
       end
     end
 
-    context "quando o usuário não está logado" do
-      it "redireciona para a página de login" do
+    context "when the user is not logged in" do
+      it "redirects to the login page" do
         get new_post_path
         expect(response).to redirect_to(login_path)
       end
@@ -44,10 +44,10 @@ RSpec.describe "Posts", type: :request do
   end
 
   describe "POST /posts" do
-    context "quando os dados do post são válidos" do
+    context "when the post data is valid" do
         before { login_user }
 
-        it "cria o post e redireciona para a lista de posts" do
+        it "creates the post and redirects to the post list" do
           tag_one = create(:tag)  
           tag_two = create(:tag) 
 
@@ -58,7 +58,7 @@ RSpec.describe "Posts", type: :request do
           expect(Post.last.tags).to include(tag_one, tag_two)
         end
 
-        it "cria o post e associa as tags corretamente" do
+        it "creates the post and correctly associates the tags" do
           post_params = { post: { title: "Novo Post", content: "Conteúdo do post" }, post_tags_attributes: [{ name: "faculdade" }] }
           post posts_path, params: post_params
           expect(response).to have_http_status(302)  
@@ -66,10 +66,10 @@ RSpec.describe "Posts", type: :request do
 
     end
 
-    context "quando os dados do post são inválidos" do
+    context "when the post data is invalid" do
       before { login_user }
 
-      it "não cria o post e exibe o formulário novamente" do
+      it "does not create the post and displays the form again" do
         post posts_path, params: invalid_post_params
         expect(response).to have_http_status(422) 
         expect(flash[:alert]).to include(I18n.t('posts.create.failure'))
@@ -80,9 +80,9 @@ RSpec.describe "Posts", type: :request do
 
   describe "GET /posts/:id/edit" do
 
-    context "quando o usuário está logado" do
+    context "when the user is logged in" do
       before { login_user }
-      it "exibe o formulário de edição do post" do
+      it "show the post edit form" do
         get edit_post_path(post_obj)
         expect(response).to have_http_status(:ok)
       end
@@ -92,9 +92,9 @@ RSpec.describe "Posts", type: :request do
 
   describe "PATCH /posts/:id" do
 
-    context "quando os dados do post são válidos" do
+    context "when the post data is valid" do
       before { login_user }
-      it "atualiza o post e redireciona para a lista de posts" do
+      it "updates the post and redirects to the post list" do
         patch post_path(post_obj), params: { post: { title: "Updated title", content: "Updated content" }, tags: 'Rails, Ruby' }
         expect(response).to redirect_to(my_posts_posts_path)
         follow_redirect!
@@ -103,9 +103,9 @@ RSpec.describe "Posts", type: :request do
       end
     end
 
-    context "quando os dados do post são inválidos" do
+    context "when the post data is invalid" do
       before { login_user }
-      it "não atualiza o post e renderiza o formulário de edição" do
+      it "does not update the post and renders the edit form" do
         patch post_path(post_obj), params: invalid_post_params
         expect(response).to have_http_status(422)
         expect(response.body).to include(I18n.t('posts.update.failure'))
@@ -116,9 +116,9 @@ RSpec.describe "Posts", type: :request do
 
   describe "DELETE /posts/:id" do
 
-    context "quando o usuário está logado" do
+    context "when the user is logged in" do
         before { login_user }
-      it "deleta o post e redireciona para a lista de posts" do
+      it "deletes the post and redirects to the post list" do
         delete post_path(post_obj)
         expect(response).to redirect_to(my_posts_posts_path)
         follow_redirect!
@@ -126,8 +126,8 @@ RSpec.describe "Posts", type: :request do
       end
     end
 
-    context "quando o usuário não está logado" do
-      it "redireciona para a página de login" do
+    context "when the user is not logged in" do
+      it "redirects to the login page" do
         delete post_path(post_obj)
         expect(response).to redirect_to(login_path)
       end

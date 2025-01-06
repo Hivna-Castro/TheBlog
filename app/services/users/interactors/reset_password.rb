@@ -25,7 +25,7 @@ module Users
           context.success = true
           context.message = I18n.t('users.reset_password.success')
         else
-          context.fail!(error: I18n.t('users.reset_password.update_failed'))
+          context.fail!(error: I18n.t('users.reset_password.failure'))
         end
       end
     end

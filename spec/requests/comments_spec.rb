@@ -12,10 +12,10 @@ RSpec.describe "Comments", type: :request do
   end
 
   describe "POST /posts/:post_id/comments" do
-    context "quando o usuário está autenticado" do
+    context "when the user is authenticated" do
       before { login_user }
 
-      it "cria um comentário com atributos válidos" do
+      it "creates a comment with valid attributes" do
         expect {
           post post_comments_path(post), params: { comment: comment_params }
         }.to change(Comment, :count).by(1)
@@ -25,7 +25,7 @@ RSpec.describe "Comments", type: :request do
         expect(response.body).to include(I18n.t('comments.create.success'))
       end
 
-      it "não cria um comentário com atributos inválidos" do
+      it "does not create a comment with invalid attributes" do
         expect {
           post post_comments_path(post), params: { comment: invalid_comment_params }
         }.not_to change(Comment, :count)
@@ -36,8 +36,8 @@ RSpec.describe "Comments", type: :request do
       end
     end
 
-    context "quando o usuário não está autenticado" do
-      it "cria um comentário anônimo" do
+    context "when the user is not authenticated"do
+      it "creates an anonymous comment" do
         comment_params_anonymous = attributes_for(:comment, content: "Comentário anônimo")
         
         post post_comments_path(post), params: { comment: comment_params_anonymous }
@@ -53,12 +53,12 @@ RSpec.describe "Comments", type: :request do
   end
 
   describe "DELETE /posts/:post_id/comments/:id" do
-    context "quando o usuário é o autor do comentário" do
+    context "when the user is the author of the comment" do
       let!(:comment) { create(:comment, post: post, user: user) }
 
       before { login_user }
 
-      it "deleta o comentário" do
+      it "deletes the comment"  do
         expect {
           delete post_comment_path(post, comment)
         }.to change(Comment, :count).by(-1)

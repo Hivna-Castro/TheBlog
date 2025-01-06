@@ -52,12 +52,11 @@ class UsersController < ApplicationController
       user = User.find_by(email: params[:email])
 
       if user.nil?
-        flash[:alert] = I18n.t('users.forgot_password.email_not_found')
+        flash[:alert] = I18n.t('users.forgot_password.failure')
         return render :forgot_password_form
       end
 
       token = user.generate_password_reset_token
-
       reset_link = reset_password_form_users_url(token: token )
 
       result = Users::Organizers::SendEmailResetPassword.call(email: params[:email], user: user, reset_link: reset_link, token: token)

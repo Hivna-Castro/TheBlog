@@ -4,7 +4,7 @@ RSpec.describe "Users", type: :request do
   let(:user) { create(:user) } 
 
   describe "GET /signup" do
-    it "exibe o formulário de cadastro" do
+    it "show the signup form" do
       get signup_path
       expect(response).to have_http_status(:ok)
       expect(response.body).to include(I18n.t('application.users.create.signup'))
@@ -12,8 +12,8 @@ RSpec.describe "Users", type: :request do
   end
 
   describe "POST /signup" do
-    context "quando os dados do usuário são válidos" do
-      it "cria o usuário e redireciona para a página inicial" do
+    context "when the user's data is valid" do
+      it "creates the user and redirects to the homepage" do
         post signup_path, params: { user: { name: "Novo Usuário", email: "novo@user.com", password: "senha123", password_confirmation: "senha123" } }
         expect(response).to redirect_to(root_path)
         follow_redirect!
@@ -21,8 +21,8 @@ RSpec.describe "Users", type: :request do
       end
     end
 
-    context "quando os dados do usuário são inválidos" do
-      it "não cria o usuário e renderiza o formulário de cadastro" do
+    context "when the user's data is invalid" do
+      it "does not create the user and renders the signup form" do
         post signup_path, params: { user: { name: "", email: "invalid_email", password: "123", password_confirmation: "456" } }
         expect(response).to have_http_status(:ok) 
         flash.now[:alert] = I18n.t('users.create.failure', errors: user.errors.full_messages.to_sentence)
@@ -32,19 +32,19 @@ RSpec.describe "Users", type: :request do
   end
 
   describe "GET /edit" do
-    context "quando o usuário está logado" do
+    context "when the user is logged in" do
       before do
         post login_path, params: { email: user.email, password: "password123" }
       end
 
-      it "exibe o formulário de edição do usuário" do
+      it "shows the user edit form" do
         get edit_user_path(user)
         expect(response).to have_http_status(:ok)
       end
     end
 
-    context "quando o usuário não está logado" do
-      it "redireciona para a página de login" do
+    context "when the user is not logged in" do
+      it "redirects to the login page" do
         get edit_user_path(user)
         expect(response).to redirect_to(login_path)
       end
@@ -52,12 +52,12 @@ RSpec.describe "Users", type: :request do
   end
 
   describe "PATCH /users/:id" do
-    context "quando os dados do usuário são válidos" do
+    context "when the user's data is valid" do
       before do
         post login_path, params: { email: user.email, password: "password123" }
       end
 
-      it "atualiza o perfil do usuário e redireciona para a página de posts" do
+      it "updates the user's profile and redirects to the posts page" do
         patch user_path(user), params: { user: { name: "Nome Atualizado", password: "nova_senha123", password_confirmation: "nova_senha123", current_password: "password123" } }
         expect(response).to redirect_to(posts_path)
         follow_redirect!
@@ -65,12 +65,12 @@ RSpec.describe "Users", type: :request do
       end
     end
 
-    context "quando os dados do usuário são inválidos" do
+    context "when the user's data is invalid" do
       before do
         post login_path, params: { email: user.email, password: "password123" }
       end
 
-      it "não atualiza o perfil do usuário e renderiza o formulário de edição" do
+      it "does not update the user's profile and renders the edit form" do
         patch user_path(user), params: { user: { name: "", password: "nova_senha123", password_confirmation: "nova_senha123" } }
         expect(response).to have_http_status(422)
         expect(response.body).to include(I18n.t('users.update.missing_current_password'))
@@ -79,17 +79,17 @@ RSpec.describe "Users", type: :request do
   end
 
   describe "POST /forgot_password" do
-    context "quando o email é válido" do
-      it "gera um token de reset de senha" do
+    context "when the email is valid" do
+      it "generates a password reset token" do
         post forgot_password_users_path, params: { email: user.email }
 
-        expect(response).to have_http_status(:ok)
+        expect(response).to have_http_status(:found) 
         expect(flash[:notice]).to eq(I18n.t('users.forgot_password.success'))
       end
     end
 
-    context "quando o email não é encontrado" do
-      it "não gera token e exibe mensagem de erro" do
+    context "when the email is not found" do
+      it "does not generate a token and displays an error message" do
         post forgot_password_users_path, params: { email: "nao_existe@user.com" }
 
         expect(response).to have_http_status(:ok)

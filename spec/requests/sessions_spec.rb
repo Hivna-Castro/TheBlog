@@ -4,15 +4,15 @@ RSpec.describe "Sessions", type: :request do
   let(:user) { create(:user) }  
 
   describe "GET /login" do
-    it "exibe o formulário de login" do
+    it "show the login form" do
       get login_path
       expect(response).to have_http_status(:ok)  
     end
   end
 
   describe "POST /login" do
-    context "quando as credenciais são válidas" do
-      it "loga o usuário e redireciona para a página inicial" do
+    context "when the credentials are valid" do
+      it "logs in the user and redirects to the homepage" do
         post login_path, params: { email: user.email, password: "password123" }
 
         expect(response).to redirect_to(root_path)  
@@ -21,8 +21,8 @@ RSpec.describe "Sessions", type: :request do
       end
     end
 
-    context "quando as credenciais são inválidas" do
-        it "não loga o usuário e exibe mensagem de erro" do
+    context "when the credentials are invalid" do
+        it "does not log in the user and show an error message" do
             post '/login', params: { email: user.email, password: "wrongpassword" }
     
             expect(response.status).to eq(422) 
@@ -32,12 +32,12 @@ RSpec.describe "Sessions", type: :request do
   end
 
   describe "DELETE /logout" do
-    context "quando o usuário está logado" do
+    context "when the user is logged in" do
         before do
           post login_path, params: { email: user.email, password: "password123" } 
         end
     
-        it "loga o usuário e redireciona para a página inicial com mensagem de sucesso" do
+        it "logs out the user and redirects to the homepage with a success message" do
           get logout_path  
     
           expect(response).to redirect_to(root_path)  

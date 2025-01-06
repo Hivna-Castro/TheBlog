@@ -13,7 +13,7 @@ RSpec.describe Comment, type: :model do
   describe 'validations' do
     it { should validate_presence_of(:content) }
 
-    it 'exibe uma mensagem de erro quando o conteúdo estiver em branco' do
+    it 'shows an error message when the content is blank' do
       comment.content = nil 
       expect(comment.valid?).to be_falsey  
       expect(comment.errors[:content]).to include(I18n.t('activerecord.errors.models.comment.attributes.content.blank'))
