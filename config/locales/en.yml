@@ -229,7 +229,8 @@ en:
 
   tags:
     create:
-      success: "Tag %{tag_name} created successfully."
+      success: "Tag created successfully."
+      via_file: "Tag created via file."
       failure: "Error creating the tag. Please try again."
     destroy:
       success: "Tag %{tag_name} deleted successfully."

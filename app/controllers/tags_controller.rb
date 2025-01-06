@@ -20,11 +20,11 @@ class TagsController < ApplicationController
   
       FileUploadTagsJob.perform_async(file_path.to_s)
   
-      flash[:notice] = t('tags.created_via_file')
+      flash[:notice] = t('tags.create.via_file')
       redirect_to tags_path
       return
     elsif @tag.save
-      flash[:notice] = t('tags.created_successfully')
+      flash[:notice] = t('tags.create.success')
       redirect_to tags_path
     else
       flash.now[:alert] = t('tags.create.failure')

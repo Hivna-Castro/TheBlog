@@ -206,7 +206,8 @@ pt:
 
   tags:
     create:
-      success: "Tag %{tag_name} criada com sucesso."
+      success: "Tag criada com sucesso."
+      via_file: "Tag criadas via arquivo."
       failure: "Erro ao criar a tag. Por favor, tente novamente."
     destroy:
       success: "Tag %{tag_name} deletada com sucesso."

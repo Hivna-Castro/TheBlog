@@ -4,7 +4,7 @@
 </div>
 
  <div class="tags-filter">
-    <%= form_with url: posts_path, method: :get, local: true do |form| %>
+    <%= form_with url: my_posts_posts_path, method: :get, local: true do |form| %>
       <%= form.select :tag, Tag.order(:name).pluck(:name), include_blank: t('application.tags_filter.all_tags'), selected: params[:tag]%>
       <%= form.submit t('application.tags_filter.filter_button'), class: 'filter-button'  %>
     <% end %>

@@ -49,7 +49,13 @@ class PostsController < ApplicationController
     
   
   def my_posts
-    @posts = current_user.posts.order(created_at: :desc).page(params[:page]).per(3)
+    if params[:tag].present?
+      @posts = current_user.posts.joins(:tags).where(tags: { name: params[:tag] }).order(created_at: :desc).page(params[:page]).per(3)
+    else
+      @posts = current_user.posts.order(created_at: :desc).page(params[:page]).per(3)
+    end
+  
+    @tags = Tag.order(:name) 
   end
 
   def edit
