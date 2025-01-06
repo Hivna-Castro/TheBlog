@@ -1,0 +1,35 @@
+.pagination {
+  display: flex; 
+  justify-content: center;
+  list-style: none; 
+  padding: 0;
+  margin: 1rem 0; 
+}
+
+.pagination a,
+.pagination span {
+  display: inline-block; 
+  padding: 0.4rem 0.8rem; 
+  border-radius: 4px; 
+  background-color: #f9fafb; 
+  color: #212429;
+  text-decoration: none; 
+  font-size: 0.85rem; 
+  transition: background-color 0.2s ease, color 0.2s ease; 
+}
+
+.pagination a:hover {
+  background-color: #bcbdbe; 
+}
+
+.pagination .page.current {
+  align-self: center;
+  background-color: #0d1014; 
+  color: #ffffff; 
+  cursor: default; 
+}
+
+.pagination .disabled {
+  opacity: 0.5; 
+  cursor: not-allowed; 
+}

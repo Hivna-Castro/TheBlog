@@ -1,0 +1,61 @@
+.flash-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  width: auto;
+  max-width: 400px;
+}
+
+.flash-message {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  opacity: 0;
+  animation: fadeInOut 4s forwards;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
+
+.flash-message--notice,
+.flash-message--positive {
+  background-color: #28a745;
+  color: #ffffff;
+}
+
+.flash-message--alert,
+.flash-message--negative {
+  background-color: #dc3545;
+  color: #ffffff;
+}
+
+.flash-message--notice::before {
+  margin-right: 10px;
+}
+
+.flash-message--alert::before {
+  margin-right: 10px;
+}

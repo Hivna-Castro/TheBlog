@@ -28,4 +28,228 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  application:
+    title: "TheBlog"
+    nav:
+      new_post: "New Post"
+      my_posts: "My Posts"
+      edit_profile: "Edit Profile"
+      logout: "Logout"
+      login: "Login"
+      signup: "Sign Up"
+      index: "Posts"
+      tags: "Tags"
+    tags_filter:
+      select_label: "Filter by Tags:"
+      all_tags: "All Tags"
+      filter_button: "Filter"
+    posts:
+      title: "Recent Posts"
+      tags: "Tags"
+      published_on: "Published on: %{date}"
+      read_more: "Read more..."
+      my_posts: "My Posts"
+      delete: "Delete"
+      confirm_delete: "Are you sure you want to delete this post?"
+      no_posts: "You haven't created any posts yet."
+      no_posts_for_tag: "There are no posts associated with this tag."
+      no_content: "Post content is empty"
+      back: "Back"
+      new: "Create New Post"
+      edit: "Edit Post"
+      form:
+        title: "Title"
+        content: "Content"
+        tags: "Select Tags"
+        create: "Create Post"
+        update: "Save Changes"
+        upload_file: "Upload TXT File"
+        title_placeholder: "Enter your post title"
+        content_placeholder: "Enter your post content"
+        cancel: "Cancel"
+    tags:
+      confirm_remove: "Are you sure you want to remove this tag?"
+      name:
+        label: "Name"
+        placeholder: "Enter the tag name"
+      upload_file: "Upload TXT File"
+      create: "Create Tag"
+      existing: "Existing Tags"
+      delete: "Delete"
+    comments:
+      title: "Comments"
+      anonymous: "Anonymous"
+      confirm_delete: "Are you sure you want to delete this comment?"
+      no_comments: "No comments yet. Be the first to comment!"
+      leave_your_comment: "Leave your comment"
+      content_label: "Comment"
+      submit: "Comment"
+      delete: "Delete"
+    errors:
+      count: "error(s)"
+      prohibited: "prevented this post from being saved"
+    sessions:
+      login:
+        title: "Login"
+        subtitle: "Enter your email and password to access your account."
+      create:
+        email: "Email"
+        password: "Password"
+        submit: "Login"
+        forgot_password: "Forgot your password?"
+        no_account: "Don't have an account?"
+        signup: "Sign Up"
+        home: "Home"
+    users:
+      create:
+        signup: "Sign Up"
+        subtitle: "Enter your information to create an account."
+        name: "Name"
+        name_placeholder: "Enter your name"
+        email: "Email"
+        email_placeholder: "Enter your email"
+        password: "Password"
+        password_placeholder: "Enter your password"
+        password_confirmation: "Password Confirmation"
+        password_confirmation_placeholder: "Confirm your password"
+        submit: "Sign Up"
+        already_have_account: "Already have an account?"
+        login: "Login"
+        home: "Home"
+      edit_profile:
+        title: "Edit Profile"
+        name: "Name"
+        email: "Email"
+        change_password: "Change Password (optional)"
+        current_password: "Current Password"
+        new_password: "New Password"
+        confirm_new_password: "Confirm New Password"
+        submit: "Save Changes"
+        back: "Back"
+      forgot_password:
+        title: "Forgot My Password"
+        instructions: "Enter the email associated with your account."
+        send_link: "We will send you a link to reset your password."
+        email: "Email"
+        submit: "Send Instructions"
+        email_placeholder: "Enter your email"
+        back: "Back"
+      reset_password:
+        title: "Reset Password"
+        instruction: "Set a new password for your account."
+        new_password: "New Password"
+        confirm_password: "Confirm New Password"
+        submit: "Reset Password"
+
+    footer: "All rights reserved."
+
+  date:
+    formats:
+      long: "%m/%d/%Y" # Mês/Dia/Ano
+
+  activerecord:
+    models:
+      user:
+        one: "User"
+        other: "Users"
+      post:
+        one: "Post"
+        other: "Posts"
+      comment:
+        one: "Comment"
+        other: "Comments"
+      tag:
+        one: "Tag"
+        other: "Tags"
+
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: "Name can't be blank"
+            email:
+              blank: "Email can't be blank"
+              taken: "This email is already taken"
+              invalid: "Email is invalid"
+            password:
+              blank: "Password can't be blank"
+              too_short: "Password must be at least 8 characters long"
+              confirmation: "Password confirmation doesn't match"
+        post:
+          attributes:
+            title:
+              blank: "Title can't be blank"
+            content:
+              blank: "Content can't be blank"
+        comment:
+          attributes:
+            content:
+              blank: "Content #{content} can`t be blank"
+        tag:
+          attributes:
+            name:
+              blank: "Tag can't be blank"
+              taken: "has already been taken"
+
+  sessions:
+    create:
+      success: "Successfully logged in"
+      failure: "Invalid email or password"
+    destroy:
+      success: "Successfully logged out"
+
+  posts:
+    create:
+      success: "Post successfully created!"
+      failure: "Failed to create the post!"
+    update:
+      success: "Post successfully updated!"
+      failure: "Failed to update the post!"
+    destroy:
+      success: "Post successfully deleted!"
+      failure: "Failed to delete the post. Please try again."
+
+  users:
+    forgot_password:
+      success: "Password reset email has been sent successfully."
+      failure: "User not found. Please check the email and try again."
+    reset_password:
+      success: "Your password has been successfully reset."
+      failure: "Invalid or expired reset token."
+      password_validation_error: "Password must be at least 8 characters long."
+    create:
+      success: "Account successfully created!"
+      failure: "Failed to create user: %{errors}"
+    update:
+      success: "Profile successfully updated."
+      failure:
+        current_password_missing: "Current password is required to update your password."
+        current_password_invalid: "The current password you entered is incorrect."
+
+  tags:
+    create:
+      success: "Tag %{tag_name} created successfully."
+      failure: "Error creating the tag. Please try again."
+    destroy:
+      success: "Tag %{tag_name} deleted successfully."
+      associated_posts: "The tag %{tag_name} cannot be deleted because it is associated with posts."
+    destroy_from_post:
+      success: "Tag %{tag_name} removed from the post successfully."
+
+  comments:
+    create:
+      success: "Comment created successfully!"
+      failure: "Failed to create comment: %{errors}"
+    destroy:
+      success: "Comment deleted successfully."
+      failure: "You do not have permission to delete this comment."
+
+  password_mailer:
+    reset_password_email:
+      subject: "Password Reset Instructions"
+      body:
+        greeting: "Hello, %{name},"
+        instructions: "You requested a password reset. Click the link below to reset your password:"
+        button: "Reset my password"
+        closing: "If you did not request this action, please ignore this email."

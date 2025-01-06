@@ -1,0 +1,232 @@
+pt:
+  views:
+    pagination:
+      previous: "Anterior"
+      next: "Próxima"
+      first: "Primeira"
+      last: "Última"
+  application:
+    title: "TheBlog"
+    nav:
+      new_post: "Novo Post"
+      my_posts: "Meus Posts"
+      edit_profile: "Editar Perfil"
+      logout: "Sair"
+      login: "Entrar"
+      signup: "Cadastrar-se"
+      index: "Posts"
+      tags: "Tags"
+    tags_filter:
+      select_label: "Filtrar por Tags:"
+      all_tags: "Todas as Tags"
+      filter_button: "Filtrar"
+    posts:
+      title: "Posts Recentes"
+      tags: "Tags"
+      published_on: "Publicado em: %{date}"
+      read_more: "Leia mais..."
+      my_posts: "Meus Posts"
+      delete: "Apagar"
+      confirm_delete: "Tem certeza que deseja excluir este post?"
+      no_posts: "Você ainda não criou nenhum post."
+      no_posts_for_tag: "Não há posts associados a essa tag."
+      no_content: "Conteúdo do post está vazio"
+      back: "Voltar"
+      edit: "Editar Post"
+      new: "Criar Novo Post"
+      form:
+        title: "Título"
+        content: "Conteúdo"
+        tags: "Selecione as Tags"
+        create: "Criar Post"
+        update: "Salvar Alterações"
+        upload_file: "Upload de Arquivo TXT"
+        title_placeholder: "Insira o título do post"
+        content_placeholder: "Insira o conteúdo do post"
+        cancel: "Cancelar"
+    tags:
+      confirm_remove: "Tem certeza que deseja excluir esta tag?"
+      name:
+        label: "Nome"
+        placeholder: "Digite o nome da tag"
+      upload_file: "Upload de Arquivo TXT"
+      create: "Criar Tag"
+      existing: "Tags Existentes"
+      delete: "Excluir"
+    comments:
+      title: "Comentários"
+      anonymous: "Anônimo"
+      confirm_delete: "Tem certeza que deseja excluir este comentário?"
+      no_comments: "Não há comentários ainda. Seja o primeiro a comentar!"
+      leave_your_comment: "Deixe seu comentário"
+      content_label: "Comentário"
+      submit: "Comentar"
+      delete: "Excluir"
+    errors:
+      count: "erro(s)"
+      prohibited: "proibiram este post de ser salvo"
+    sessions:
+      login:
+        title: "Login"
+        subtitle: "Insira seu e-mail e senha para acessar sua conta."
+      create:
+        email: "E-mail"
+        password: "Senha"
+        submit: "Login"
+        forgot_password: "Esqueceu sua senha?"
+        no_account: "Ainda não possui uma conta?"
+        signup: "Cadastre-se"
+        home: "Home"
+    users:
+      create:
+        signup: "Cadastro"
+        subtitle: "Insira suas informações para criar uma conta."
+        name: "Nome"
+        name_placeholder: "Insira seu nome"
+        email: "Email"
+        email_placeholder: "Insira seu email"
+        password: "Senha"
+        password_placeholder: "Insira sua senha"
+        password_confirmation: "Confirmação de Senha"
+        password_confirmation_placeholder: "Confirme sua senha"
+        submit: "Cadastrar"
+        already_have_account: "Já possui uma conta?"
+        login: "Login"
+        home: "Home"
+      edit_profile:
+        title: "Editar Perfil"
+        name: "Nome"
+        email: "E-mail"
+        change_password: "Alterar Senha (opcional)"
+        current_password: "Senha Atual"
+        new_password: "Nova Senha"
+        confirm_new_password: "Confirmação de Nova Senha"
+        submit: "Salvar alterações"
+        back: "Voltar"
+      forgot_password:
+        title: "Esqueci Minha Senha"
+        instructions: "Insira o e-mail associado à sua conta."
+        send_link: "Enviaremos um link para redefinir sua senha."
+        email: "E-mail"
+        submit: "Enviar Instruções"
+        email_placeholder: "Enter your email"
+        back: "Voltar"
+      reset_password:
+        title: "Redefinir Senha"
+        instruction: "Defina uma nova senha para sua conta."
+        new_password: "Nova Senha"
+        confirm_password: "Confirme a Nova Senha"
+        submit: "Redefinir Senha"
+
+    footer: "Todos os direitos reservados."
+
+  date:
+    formats:
+      long: "%d/%m/%Y"
+
+  activerecord:
+    models:
+      user:
+        one: "Usuário"
+        other: "Usuários"
+      post:
+        one: "Post"
+        other: "Posts"
+      comment:
+        one: "Comentário"
+        other: "Comentários"
+      tag:
+        one: "Tag"
+        other: "Tags"
+
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: "Nome não pode ficar em branco"
+            email:
+              blank: "E-mail não pode ficar em branco"
+              taken: "Este e-mail já está em uso"
+              invalid: "E-mail inválido"
+            password:
+              blank: "Senha não pode ficar em branco"
+              too_short: "A senha deve ter pelo menos 8 caracteres"
+              confirmation: "A confirmação da senha não corresponde"
+        post:
+          attributes:
+            title:
+              blank: "Titulo não pode ficar em branco"
+            content:
+              blank: "Conteúdo não pode ficar em branco"
+        comment:
+          attributes:
+            content:
+              blank: "O conteúdo #{content} não pode ficar em branco"
+        tag:
+          attributes:
+            name:
+              blank: "Tag não pode ficar em branco"
+              taken: "Já está em uso"
+
+  sessions:
+    create:
+      success: "Login realizado com sucesso"
+      failure: "Email ou senha inválidos"
+    destroy:
+      success: "Logout realizado com sucesso"
+
+  posts:
+    create:
+      success: "Post criado com sucesso!"
+      failure: "Falha ao criar o post!"
+    update:
+      success: "Post atualizado com sucesso!"
+      failure: "Falha ao atualizar o post!"
+    destroy:
+      success: "Post deletado com sucesso!"
+      failure: "Falha ao deletar o post. Por favor, tente novamente."
+
+  users:
+    forgot_password:
+      success: "O e-mail para redefinir a senha foi enviado com sucesso."
+      failure: "Usuário não encontrado. Por favor, verifique o e-mail e tente novamente."
+    reset_password:
+      success: "Sua senha foi redefinida com sucesso."
+      failure: "Token de redefinição inválido ou expirado."
+      password_validation_error: "A senha deve ter no mínimo 8 caracteres."
+    create:
+      success: "Conta criada com sucesso!"
+      failure: "Falha ao criar o usuário: %{errors}"
+    update:
+      success: "Perfil atualizado com sucesso."
+      failure:
+        current_password_missing: "A senha atual é obrigatória para alterar a senha."
+        current_password_invalid: "A senha atual que você digitou está incorreta."
+
+  tags:
+    create:
+      success: "Tag %{tag_name} criada com sucesso."
+      failure: "Erro ao criar a tag. Por favor, tente novamente."
+    destroy:
+      success: "Tag %{tag_name} deletada com sucesso."
+      associated_posts: "A tag %{tag_name} não pode ser deletada porque está associada a posts."
+    destroy_from_post:
+      success: "Tag %{tag_name} removida do post com sucesso."
+
+  comments:
+    create:
+      success: "Comentário criado com sucesso!"
+      failure: "Erro ao criar comentário: %{errors}"
+    destroy:
+      success: "Comentário excluído com sucesso."
+      failure: "Você não tem permissão para excluir este comentário."
+
+  password_mailer:
+    reset_password_email:
+      subject: "Instruções para redefinição de senha"
+      body:
+        greeting: "Olá, %{name},"
+        instructions: "Você solicitou a redefinição de sua senha. Clique no link abaixo para redefinir sua senha:"
+        button: "Redefinir minha senha"
+        closing: "Se você não solicitou essa ação, ignore este e-mail."

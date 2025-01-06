@@ -1,0 +1,32 @@
+
+  <div class="flex flex-col gap-half">
+    <h3 class="text-2xl font-semibold leading-none mb-2 text-center"> <%= t('application.posts.title') %> </h3>
+  </div>
+  <div class="tags-filter">
+    <%= form_with url: posts_path, method: :get, local: true do |form| %>
+      <%= form.select :tag, Tag.order(:name).pluck(:name), include_blank: t('application.tags_filter.all_tags'), selected: params[:tag]%>
+      <%= form.submit t('application.tags_filter.filter_button'), class: 'filter-button'  %>
+    <% end %>
+  </div>
+
+  <%= turbo_stream_from "posts" %>
+  <div >
+    <% if @posts.any? %>
+      <% @posts.each do |post| %>
+        <%= render partial: "post", locals: { post: post } %>
+      <% end %>
+    <% else %>
+      <% if params[:tag].present? %>
+        <p class="text-sm text-subtle"><%= t('application.posts.no_posts_for_tag') %></p>
+      <% else %>
+        <p class="text-sm text-subtle"><%= t('application.posts.no_posts') %></p>
+      <% end %>
+    <% end %>
+
+    <div class="pagination">
+      <%= paginate @posts %>
+    </div>
+  </div>
+
+
+

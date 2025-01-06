@@ -1,0 +1,45 @@
+ 
+<%= form_with(model: post, local: true, html: { multipart: true, class: "post-form", data: { controller: "post" } }) do |form| %>
+  <div class="flex flex-col gap-half mb-2 text-center">
+    <h3 class="text-2xl font-semibold leading-none"><%= @post.persisted? ? t('application.posts.edit') : t('application.posts.new') %></h3>
+  </div>
+  <div class="flex flex-col gap mb-4" >
+
+    <div class="flex flex-col gap-half">
+      <%= form.label :title, t('application.posts.form.title'), class: "text-sm font-medium leading-none" %>
+      <%= form.text_field :title, placeholder: t('application.posts.form.title_placeholder'), class: "input", data: { post_target: "title", action: "input->post#onInput" }  %>
+    </div>
+
+    <div class="flex flex-col gap-half">
+      <%= form.label :content, t('application.posts.form.content'), class: "text-sm font-medium leading-none" %>
+      <%= form.text_area :content, placeholder: t('application.posts.form.content_placeholder'),  class: "input", data: { post_target: "content", action: "input->post#onInput" }  %> 
+    </div>
+
+    <% unless @post.persisted? %>
+      <div class="flex flex-col gap-half" >
+        <%= form.label :file, t('application.posts.form.upload_file'), class: "text-sm font-medium leading-none" %>
+        <%= form.file_field :file, class: " file-input input", data: { post_target: "file", action: "change->post#onFileChange" } %>
+      </div>
+    <% end %>
+
+    <div class="flex flex-col gap-half">
+      <%= form.label :tag_ids, t('application.posts.form.tags'), class: "text-sm font-medium leading-none" %>
+      <div class="custom-select-scroll">
+        <% @tags.each do |tag| %>
+          <div class="flex items-center gap-1">
+            <%= check_box_tag "post[tag_ids][]", tag.id, @post.tag_ids.include?(tag.id), id: "tag_#{tag.id}", class: "checkbox" %>
+            <%= label_tag "tag_#{tag.id}", tag.name, class: "text-sm" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="flex items-center mb-2">
+    <%= form.submit @post.persisted? ? t('application.posts.form.update') : t('application.posts.form.create'), class: "btn btn--primary i-full" %>
+  </div>
+  <div class="flex items-center">
+    <%= link_to t('application.posts.form.cancel'), posts_path, class: "btn btn--negative  i-full" %>
+  </div>
+<% end %>

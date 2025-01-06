@@ -8,9 +8,85 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
   </head>
 
   <body>
-    <%= yield %>
+    <div class="text-sm text-subtle ">
+      <%= link_to 'English', url_for(locale: 'en') %> | 
+      <%= link_to 'Português', url_for(locale: 'pt') %>
+    </div>
+
+    <div class="flash-messages" data-controller="flash">
+      <% flash.each do |type, message| %>
+        <div class="flash-message flash-message--<%= type %>">
+          <%= message %>
+        </div>
+      <% end %>
+    </div>
+
+      <% if controller_name == "sessions" && (action_name == "new" || action_name == "create") || 
+        controller_name == "users" && (action_name == "new" || action_name == "edit" || action_name == "forgot_password_form" || action_name == "reset_password_form") ||
+        controller_name == "posts" && (action_name == "new" || action_name == "edit") %>
+        <% unless controller_name == "users" && (action_name == "forgot_password_form" || action_name == "reset_password_form") %>
+          <header id="header">
+            <h1 class="text-2xl font-semibold leading-none" ><%= link_to "TheBlog", posts_path %> </h1>
+          </header>
+        <% end %>
+        <section class="centered-layout bg-shade" >
+          <%= yield %>
+        </section>
+      <% else %>
+        <% if logged_in? %>
+          <div class="sidebar-layout">
+            <header id="header">
+              <h1 class="text-2xl font-semibold leading-none"><%= link_to "TheBlog", posts_path %></h1>
+            </header>
+
+            <%# Sidebar para usuários logados %>
+            <% if (controller_name == 'posts' && (action_name == 'index' || action_name == 'my_posts' || action_name == 'show')) || controller_name == 'tags' %>
+              <aside id="sidebar">
+                <div class="p-2">
+                  <div class="p-2"><%= link_to t('application.nav.new_post'), new_post_path %></div>
+
+                  <% if controller_name == 'posts' && action_name == 'index' %>
+                    <div class="p-2"><%= link_to t('application.nav.my_posts'), my_posts_posts_path %></div>
+                  <% elsif (controller_name == 'posts' && action_name == 'my_posts' || action_name == "show") || controller_name == 'tags' %>
+                    <div class="p-2"><%= link_to t('application.nav.index'), posts_path %></div>
+                  <% end %>
+
+                  <div class="p-2"><%= link_to t('application.nav.tags'), tags_path %></div>
+                  <div class="p-2"><%= link_to t('application.nav.edit_profile'), edit_user_path(current_user) %></div>
+                  <div class="p-2"><%= link_to t('application.nav.logout'), logout_path %></div>
+                </div>
+              </aside>
+            <% end %>
+
+            <main id="main">
+              <%= yield %>
+            </main>
+          </div>
+        <% else %>
+          <%# Layout para usuários não logados %>
+          <header id="header" class="flex justify-between items-center p-4">
+            <h1 class="text-2xl font-semibold leading-none"><%= link_to "TheBlog", posts_path %></h1>
+            <div class="flex gap-4">
+              <%= link_to t('application.nav.login'), login_path, class: "btn btn--secondary" %>
+              <%= link_to t('application.nav.signup'), signup_path, class: "btn btn--primary" %>
+            </div>
+          </header>
+
+          <section class="centered-layout bg-shade">
+            <%= yield %>
+          </section>
+        <% end %>
+      <% end %>
+
+      <footer id="footer" class= "p-2 text-center">
+        <div>
+          <p class="text-sm text-subtle" ><small>&copy; <%= Time.now.year %> <%= t('application.footer') %><small></p>
+        </div>
+      </footer>
+
   </body>
 </html>

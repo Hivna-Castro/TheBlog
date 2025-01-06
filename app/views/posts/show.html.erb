@@ -1,0 +1,44 @@
+<div class="show-container <%= 'logged-in' if current_user %>">
+  <h3 class="text-2xl font-semibold leading-none mb-6 text-center"><%= @post.title %></h3>
+  <p id="content" class="mb-6 text-center"><%= @post.content&.truncate(200) || t('application.posts.no_content') %></p>
+  <p><small><%= t('application.posts.published_on', date: l(@post.created_at.in_time_zone('America/Sao_Paulo'), format: :long)) %></small></p>
+
+  <h4 class="text-xl font-semibold mt-6"><%= t('application.comments.title') %></h4>
+
+  <% if @comments.any? %>
+    <div class="comments-container scrollable <%= 'logged-in' if current_user %> ">
+      <% @post.comments.each do |comment| %>
+        <div class="comment mb-4">
+          <p><strong>
+            <% if comment.anonymous || comment.user.nil? %>
+              <%= t('application.comments.anonymous') %>:
+            <% else %>
+              <%= comment.user.name %>:
+            <% end %>
+          </strong> <%= comment.content %></p>
+
+          <% if !comment.anonymous && comment.user == current_user %>
+            <%= form_with url: post_comment_path(@post, comment), method: :delete, data: { confirm: t('comments.confirm_delete') }, local: true do %>
+              <div class="flex justify-end m-1 ">
+                <%= submit_tag t('application.comments.delete'), class: 'btn btn--negative' %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-sm text-subtle"><%= t('application.comments.no_comments') %></p>
+  <% end %>
+
+  <%= form_with model: [@post, Comment.new], local: true do |form| %>
+    <div class="flex flex-col gap-half mb-1">
+      <%= form.label :content, t('application.comments.leave_your_comment'), class: "text-sm font-medium leading-none" %>
+      <%= form.text_area :content, class: "input" %>
+    </div>
+    <div class="flex justify-center items-center mb-2">
+      <%= form.submit t('application.comments.submit'), class: "btn btn--primary w-full max-w-xs" %>
+    </div>
+  <% end %>
+</div>
+

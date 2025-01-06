@@ -1,0 +1,103 @@
+.input {
+  appearance: none;
+  background-color: var(--input-background, var(--color-bg));
+  border: 1px solid var(--input-border-color, var(--color-border));
+  border-radius: var(--input-radius, var(--rounded-md));
+  font-size: var(--input-font-size, var(--text-sm));
+  inline-size: var(--input-inline-size, var(--size-full));
+  min-block-size: var(--input-block-size, var(--size-10));
+  padding: var(--input-padding, 0.5rem 0.75rem);
+
+  option {
+    padding-block: 2px;
+  }
+
+  &:is(textarea[rows="auto"]) {
+    field-sizing: content;
+    max-block-size: calc(10lh + var(--size-6));
+    min-block-size: calc(3lh + var(--size-6));
+  }
+
+  &:is(select):not([multiple], [size]) {
+    background-image: url("select-arrow.svg");
+    background-position: center right var(--size-2);
+    background-repeat: no-repeat;
+    background-size: var(--size-4) auto;
+  }
+
+  &::file-selector-button {
+    font-weight: var(--font-medium);
+  }
+
+  &:user-invalid {
+    border-color: var(--color-negative);
+  }
+
+  &:user-invalid ~ .invalid-feedback {
+    display: flex;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: var(--opacity-50);
+  }
+}
+
+/* Hide invalid feedback by default */
+.invalid-feedback {
+  display: none;
+}
+
+/* Checkbox, radio, and range */
+.checkbox,
+.radio {
+  accent-color: var(--color-primary);
+  transform: scale(1.15);
+}
+
+/* Styles that are shared between components */
+:is(.input, .checkbox, .radio) {
+  &:focus-visible {
+    outline: var(--input-outline-size, 2px) solid var(--color-selected-dark);
+    outline-offset: var(--border-2);
+  }
+
+  .field_with_errors & {
+    border-color: var(--color-negative);
+  }
+}
+
+.custom-select-scroll {
+  max-height: 80px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 6px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 0.875rem;
+}
+
+.custom-select-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-select-scroll::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+.custom-select-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  margin-right: 10px;
+  accent-color: #1e5321;
+}
+
+.file-input {
+  cursor: pointer;
+}
