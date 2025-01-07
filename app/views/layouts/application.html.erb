@@ -14,8 +14,8 @@
   <body>
     
     <div class="text-sm text-subtle ">
-      <%= link_to 'English', request.original_url.gsub('/pt/', '/en/').gsub('/en/', '/en/') %> | 
-      <%= link_to 'Português', request.original_url.gsub('/en/', '/pt/').gsub('/pt/', '/pt/') %>
+      <%= link_to 'English', url_for(locale: 'en') %> | 
+      <%= link_to 'Português', url_for(locale: 'pt') %>
     </div>
 
     </div>
