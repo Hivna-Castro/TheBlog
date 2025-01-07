@@ -196,14 +196,15 @@ pt:
       failure: "Sua senha não foi redefinida."
       password_validation_error: "A senha deve ter no mínimo 8 caracteres."
       invalid_token: "Token de redefinição inválido ou expirado"
+      password_mismatch: "Senha e Confirmação de senha são diferentes"
     create:
       success: "Conta criada com sucesso!"
       failure: "Falha ao criar o usuário: %{errors}"
     update:
       success: "Perfil atualizado com sucesso."
-      failure:
-        current_password_missing: "A senha atual é obrigatória para alterar a senha."
-        current_password_invalid: "A senha atual que você digitou está incorreta."
+      failure: "Falha na atualização do perfil"
+      current_password_missing: "A senha atual é obrigatória para alterar a senha."
+      current_password_invalid: "A senha atual que você digitou está incorreta."
 
   tags:
     create:
@@ -215,6 +216,7 @@ pt:
       associated_posts: "A tag %{tag_name} não pode ser deletada porque está associada a posts."
     destroy_from_post:
       success: "Tag %{tag_name} removida do post com sucesso."
+      failure: "Tag não pode ser deletada"
 
   comments:
     create:

@@ -219,14 +219,15 @@ en:
       failure: "Your password could not be reset."
       password_validation_error: "Password must be at least 8 characters long."
       invalid_token: "Invalid or expired reset token"
+      password_mismatch: "The passwords do not match."
     create:
       success: "Account successfully created!"
       failure: "Failed to create user: %{errors}"
     update:
       success: "Profile successfully updated."
-      failure:
-        current_password_missing: "Current password is required to update your password."
-        current_password_invalid: "The current password you entered is incorrect."
+      failure: "Profile update failed."
+      current_password_missing: "Current password is required to update your password."
+      current_password_incorrect: "The current password you entered is incorrect."
 
   tags:
     create:
@@ -238,6 +239,7 @@ en:
       associated_posts: "The tag %{tag_name} cannot be deleted because it is associated with posts."
     destroy_from_post:
       success: "Tag %{tag_name} removed from the post successfully."
+      failure: "Tag cannot be deleted"
 
   comments:
     create:

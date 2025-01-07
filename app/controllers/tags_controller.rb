@@ -45,7 +45,7 @@ class TagsController < ApplicationController
     if @post.tags.delete(@tag)
       redirect_to my_posts_posts_path, notice: I18n.t('tags.destroy_from_post.success', tag_name: @tag.name)
     else
-      redirect_to my_posts_posts_path, alert: I18n.t('tags.destroy.failure', tag_name: @tag.name)
+      redirect_to my_posts_posts_path, alert: I18n.t('tags.destroy_from_post.failure', tag_name: @tag.name)
     end
   end
 

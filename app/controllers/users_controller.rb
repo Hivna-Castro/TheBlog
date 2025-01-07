@@ -25,11 +25,11 @@ class UsersController < ApplicationController
     
       if user_params[:password].present? || user_params[:password_confirmation].present?
         if user_params[:current_password].blank?
-          flash.now[:alert] = I18n.t('users.update.missing_current_password')
+          flash.now[:alert] = I18n.t('users.update.current_password_missing')
           render :edit, status: :unprocessable_entity
           return
         elsif !@user.authenticate(user_params[:current_password])
-          flash.now[:alert] = I18n.t('users.update.incorrect_current_password')
+          flash.now[:alert] = I18n.t('users.update.current_password_incorrect')
           render :edit, status: :unprocessable_entity
           return
         end
